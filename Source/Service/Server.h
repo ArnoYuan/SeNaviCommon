@@ -116,7 +116,7 @@ namespace NS_Service
 
             SrvType srv;
 
-            srv.deserialize (addr, operation->buf_len);
+            srv.deserialize (addr);
             operation->buf_len = srv.serializationLength ();
 
             service_entry (srv);
@@ -127,7 +127,7 @@ namespace NS_Service
               addr = (unsigned char*)getSrv ();
             }
 
-            srv.serialize (addr);
+            srv.serialize (addr, operation->buf_len);
 
             operation->status = SERVICE_IDLE;
             operation->rep_cond.notify_all ();

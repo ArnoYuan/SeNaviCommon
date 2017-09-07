@@ -15,27 +15,49 @@ namespace NS_ServiceType
 {
   
   template<class ContainerAllocator>
-    struct ServiceMap_: public ServiceBase
+  struct ServiceMap_: public ServiceBase
+  {
+    typedef ServiceMap_<ContainerAllocator> Type;
+  public:
+    ServiceMap_ ()
+        : map ()
     {
-      typedef ServiceMap_<ContainerAllocator> Type;
-    public:
-      ServiceMap_ ()
-          : map ()
-      {
-      }
-      ;
+    }
+    ;
 
-      ServiceMap_ (const ContainerAllocator& allocator)
-          : map (allocator)
-      {
-      }
-      ;
+    ServiceMap_ (const ContainerAllocator& allocator)
+        : map (allocator)
+    {
+    }
+    ;
 
-      NS_DataType::OccupancyGrid_<ContainerAllocator> map;
+    NS_DataType::OccupancyGrid_<ContainerAllocator> map;
 
-      typedef boost::shared_ptr<ServiceMap_<ContainerAllocator> > Ptr;
-      typedef boost::shared_ptr<ServiceMap_<ContainerAllocator> const> ConstPtr;
-    };
+    typedef boost::shared_ptr<ServiceMap_<ContainerAllocator> > Ptr;
+    typedef boost::shared_ptr<ServiceMap_<ContainerAllocator> const> ConstPtr;
+
+  public:
+    virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+    {
+      NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+
+      return stream.getData();
+    }
+
+    virtual uint8_t *deserialize(uint8_t *read_ptr)
+    {
+      NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+
+      return stream.getData();
+    }
+
+    virtual uint32_t serializationLength() const
+    {
+      uint32_t size = 0;
+
+      return size;
+    }
+  };
   
   typedef ServiceMap_<std::allocator<void> > ServiceMap;
   
