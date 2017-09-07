@@ -27,12 +27,11 @@ Source/Callbacks \
 Source/Communication \
 Source/ConfigFile \
 Source/Console \
-Source/DataSet \
 Source/Exception \
 Source/MapGenerator \
 Source/Mission \
 Source/Parameter \
-Source/Service \
+Source/Serialization \
 Source/Time \
 Source/Timer \
 

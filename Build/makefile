@@ -10,12 +10,11 @@ RM := rm -rf
 -include sources.mk
 -include Source/Timer/subdir.mk
 -include Source/Time/subdir.mk
--include Source/Service/subdir.mk
+-include Source/Serialization/subdir.mk
 -include Source/Parameter/subdir.mk
 -include Source/Mission/subdir.mk
 -include Source/MapGenerator/subdir.mk
 -include Source/Exception/subdir.mk
--include Source/DataSet/subdir.mk
 -include Source/Console/subdir.mk
 -include Source/ConfigFile/subdir.mk
 -include Source/Communication/subdir.mk
