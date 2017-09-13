@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 using namespace std;
 namespace NS_NaviCommon
@@ -33,6 +34,8 @@ namespace NS_NaviCommon
   public:
     Console () {};
     ~Console () {};
+  private:
+    bool use_vt100 = true;
   public:
     void
     message (const char* message_, ...)
@@ -42,11 +45,14 @@ namespace NS_NaviCommon
       va_start(args, message_);
       vsnprintf (out, sizeof(out), message_, args);
       va_end(args);
-      printf (COLOR_GREEN);
-      printf ("Message: ");
+      if (use_vt100)
+        printf (COLOR_GREEN);
+      printf ("[Message]: ");
       printf (out);
-      printf (COLOR_NONE);
+      if (use_vt100)
+        printf (COLOR_NONE);
       printf ("\r\n");
+      fflush(stdout);
     }
     ;
 
@@ -58,11 +64,14 @@ namespace NS_NaviCommon
       va_start(args, warning_);
       vsnprintf (out, sizeof(out), warning_, args);
       va_end(args);
-      printf (COLOR_YELLOW);
-      printf ("Warning: ");
+      if (use_vt100)
+        printf (COLOR_YELLOW);
+      printf ("[Warning]: ");
       printf (out);
-      printf (COLOR_NONE);
+      if (use_vt100)
+        printf (COLOR_NONE);
       printf ("\r\n");
+      fflush(stdout);
     }
     ;
 
@@ -74,11 +83,14 @@ namespace NS_NaviCommon
       va_start(args, error_);
       vsnprintf (out, sizeof(out), error_, args);
       va_end(args);
-      printf (COLOR_RED);
-      printf ("Error: ");
+      if (use_vt100)
+        printf (COLOR_RED);
+      printf ("[Error]: ");
       printf (out);
-      printf (COLOR_NONE);
+      if (use_vt100)
+        printf (COLOR_NONE);
       printf ("\r\n");
+      fflush(stdout);
     }
     ;
 
@@ -92,11 +104,14 @@ namespace NS_NaviCommon
         va_start(args, message_);
         vsnprintf (out, sizeof(out), message_, args);
         va_end(args);
-        printf (COLOR_CYAN);
-        printf (">>>   ");
+        if (use_vt100)
+          printf (COLOR_CYAN);
+        printf ("[Debug]: ");
         printf (out);
-        printf (COLOR_NONE);
+        if (use_vt100)
+          printf (COLOR_NONE);
         printf ("\r\n");
+        fflush(stdout);
       }
     }
     ;
@@ -122,20 +137,39 @@ namespace NS_NaviCommon
     void
     dump (unsigned char* ptr_, size_t len_)
     {
-      printf (COLOR_YELLOW);
+      if (use_vt100)
+        printf (COLOR_YELLOW);
       printf ("[ ");
       for (size_t i = 0; i < len_; i++)
       {
         printf ("%02X ", *(ptr_ + i));
       }
       printf (" ]");
-      printf (COLOR_NONE);
-      printf ("\r\n");
-    }
-  };
 
-  void
-  disableStdoutStream ();
+      if (use_vt100)
+        printf (COLOR_NONE);
+
+      printf ("\r\n");
+      fflush(stdout);
+    }
+
+    void
+    redirect (std::string log_file)
+    {
+      fflush(stdout);
+      mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+      int log_fd = open (log_file.c_str (), O_CREAT | O_RDWR | O_TRUNC, mode);
+      dup2 (log_fd, STDOUT_FILENO);
+    };
+
+    void
+    setVT100 (bool use)
+    {
+      fflush(stdout);
+      use_vt100 = use;
+    };
+
+  };
 
 }
 

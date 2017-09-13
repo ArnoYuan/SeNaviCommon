@@ -13,7 +13,6 @@
 
 namespace NS_ServiceType
 {
-  
   template<class ContainerAllocator>
   struct ServiceMap_: public ServiceBase
   {
