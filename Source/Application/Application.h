@@ -78,12 +78,14 @@ public:
   {
     NS_NaviCommon::Time::init ();
 
+    console.message ("Application is initializing...");
+
     boost::program_options::options_description options ("Application options");
     options.add_options ()
-        ("help", "application help message")
-        ("log", boost::program_options::value<string> (), "dump logs to log file")
-        ("verbose", "run debug output")
-        ("core", boost::program_options::value<int> (), "if application run in smp mode, use this parameter to bind cpu core");
+        ("help,h", "application help message")
+        ("log,l", boost::program_options::value<string> (), "dump logs to log file")
+        ("verbose,v", "run debug output")
+        ("core,c", boost::program_options::value<int> (), "if application run in smp mode, use this parameter to bind cpu core");
 
     boost::program_options::variables_map vm;
     boost::program_options::store (boost::program_options::parse_command_line (argc, argv, options), vm);
