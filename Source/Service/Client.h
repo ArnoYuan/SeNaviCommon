@@ -30,9 +30,9 @@ namespace NS_Service
 
       shared_memory_object oper_shm (open_only, service_name.c_str (), read_write);
 
-      mapped_region region (oper_shm, read_write);
+      oper_region = mapped_region (oper_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = oper_region.get_address ();
 
       operation = static_cast<ServiceOperation*> (region_addr);
     }
@@ -45,6 +45,9 @@ namespace NS_Service
     std::string service_name;
 
     ServiceOperation* operation;
+
+    mapped_region oper_region;
+    mapped_region srv_region;
 
   public:
     bool call (SrvType& srv)
@@ -78,9 +81,9 @@ namespace NS_Service
 
       shared_memory_object srv_shm (open_only, srv_shm_name.c_str (), read_write);
 
-      mapped_region region (srv_shm, read_write);
+      srv_region = mapped_region (srv_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = srv_region.get_address ();
 
       srv.deserialize ((unsigned char*)region_addr);
 

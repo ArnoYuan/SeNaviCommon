@@ -33,15 +33,19 @@ namespace NS_DataSet
 
       shared_memory_object oper_shm (create_only, dataset_name.c_str (), read_write);
 
-      mapped_region region (oper_shm, read_write);
+      oper_shm.truncate (sizeof (DataSetOperation));
 
-      void* region_addr = region.get_address ();
+      oper_region = mapped_region (oper_shm, read_write);
+
+      void* region_addr = oper_region.get_address ();
 
       operation = new (region_addr) DataSetOperation;
 
-      active = true;
-
-      dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
+      if (operation)
+      {
+        active = true;
+        dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
+      }
     }
 
     virtual ~Subscriber ()
@@ -62,6 +66,9 @@ namespace NS_DataSet
 
     boost::thread dataset_thread;
 
+    mapped_region oper_region;
+    mapped_region ds_region;
+
     bool active;
   private:
     void* getSrv ()
@@ -70,9 +77,9 @@ namespace NS_DataSet
 
       shared_memory_object ds_shm (open_only, ds_shm_name.c_str (), read_write);
 
-      mapped_region region (ds_shm, read_write);
+      ds_region = mapped_region (ds_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = ds_region.get_address ();
 
       return region_addr;
     }

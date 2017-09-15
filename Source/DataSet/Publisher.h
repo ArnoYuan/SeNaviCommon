@@ -28,9 +28,9 @@ namespace NS_DataSet
 
       shared_memory_object oper_shm (open_only, dataset_name.c_str (), read_write);
 
-      mapped_region region (oper_shm, read_write);
+      oper_region = mapped_region (oper_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = oper_region.get_address ();
 
       operation = static_cast<DataSetOperation*> (region_addr);
     }
@@ -45,6 +45,9 @@ namespace NS_DataSet
 
     DataSetOperation* operation;
 
+    mapped_region oper_region;
+    mapped_region ds_region;
+
   private:
 
     void* getSrv ()
@@ -53,9 +56,9 @@ namespace NS_DataSet
 
       shared_memory_object ds_shm (open_only, ds_shm_name.c_str (), read_write);
 
-      mapped_region region (ds_shm, read_write);
+      ds_region = mapped_region (ds_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = ds_region.get_address ();
 
       return region_addr;
     }
@@ -81,6 +84,14 @@ namespace NS_DataSet
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
 
+      operation->buf_len = ds.serializationLength ();
+
+      resize (operation->buf_len);
+
+      unsigned char* addr = (unsigned char*)getSrv ();
+
+      ds.serialize ((unsigned char*)addr, operation->buf_len);
+
       operation->status = DATASET_PROCESSING;
       operation->req_cond.notify_all ();
 
@@ -100,17 +111,6 @@ namespace NS_DataSet
       {
         return false;
       }
-
-      if (operation->buf_len != ds.serializationLength ())
-      {
-        resize (ds.serializationLength ());
-      }
-
-      operation->buf_len = ds.serializationLength ();
-
-      unsigned char* addr = (unsigned char*)getSrv ();
-
-      ds.serialize ((unsigned char*)addr, operation->buf_len);
 
       return true;
     }

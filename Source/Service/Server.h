@@ -34,15 +34,19 @@ namespace NS_Service
 
       shared_memory_object oper_shm (create_only, service_name.c_str (), read_write);
 
-      mapped_region region (oper_shm, read_write);
+      oper_shm.truncate (sizeof (ServiceOperation));
 
-      void* region_addr = region.get_address ();
+      oper_region = mapped_region (oper_shm, read_write);
+
+      void* region_addr = oper_region.get_address ();
 
       operation = new (region_addr) ServiceOperation;
 
-      active = true;
-
-      service_thread = boost::thread (boost::bind (&Server::processor, this));
+      if (operation)
+      {
+        active = true;
+        service_thread = boost::thread (boost::bind (&Server::processor, this));
+      }
 
     }
 
@@ -67,6 +71,9 @@ namespace NS_Service
 
     ServiceOperation* operation;
 
+    mapped_region oper_region;
+    mapped_region srv_region;
+
     bool active;
 
   private:
@@ -77,9 +84,9 @@ namespace NS_Service
 
       shared_memory_object srv_shm (open_only, srv_shm_name.c_str (), read_write);
 
-      mapped_region region (srv_shm, read_write);
+      srv_region = mapped_region (srv_shm, read_write);
 
-      void* region_addr = region.get_address ();
+      void* region_addr = srv_region.get_address ();
 
       return region_addr;
     }
@@ -112,20 +119,14 @@ namespace NS_Service
 
           if (service_entry)
           {
-            unsigned char* addr = (unsigned char*)getSrv ();
+            unsigned char* addr;
 
             SrvType srv;
 
-            srv.deserialize (addr);
-            operation->buf_len = srv.serializationLength ();
-
             service_entry (srv);
 
-            if (operation->buf_len != srv.serializationLength ())
-            {
-              resize (srv.serializationLength ());
-              addr = (unsigned char*)getSrv ();
-            }
+            resize (srv.serializationLength ());
+            addr = (unsigned char*)getSrv ();
 
             srv.serialize (addr, operation->buf_len);
 
