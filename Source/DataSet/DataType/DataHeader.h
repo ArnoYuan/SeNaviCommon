@@ -5,7 +5,7 @@
 #include <vector>
 #include "../../Time/Time.h"
 #include "DataBase.h"
-#include "Serialization/Serialization.h"
+#include "../../Serialization/Serialization.h"
 
 namespace NS_DataType
 {
@@ -39,21 +39,27 @@ namespace NS_DataType
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
         NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-
+        NS_NaviCommon::serialize(stream, this->seq);
+        NS_NaviCommon::serialize(stream, stamp);
+        NS_NaviCommon::serialize(stream, frame_id);
         return stream.getData();
       }
 
       virtual uint8_t *deserialize(uint8_t *read_ptr)
       {
         NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-
+        NS_NaviCommon::deserialize(stream, seq);
+        NS_NaviCommon::deserialize(stream, stamp);
+        NS_NaviCommon::deserialize(stream, frame_id);
         return stream.getData();
       }
 
       virtual uint32_t serializationLength() const
       {
         uint32_t size = 0;
-
+        size += NS_NaviCommon::serializationLength(seq);
+        size += NS_NaviCommon::serializationLength(stamp);
+        size += NS_NaviCommon::serializationLength(frame_id);
         return size;
       }
     };

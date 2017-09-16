@@ -11,7 +11,7 @@
 #include "DataBase.h"
 #include "Point.h"
 #include "Quaternion.h"
-#include "Serialization/Serialization.h"
+#include "../../Serialization/Serialization.h"
 
 namespace NS_DataType
 {
@@ -43,21 +43,24 @@ namespace NS_DataType
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
         NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-
+        NS_NaviCommon::serialize(stream, position);
+        NS_NaviCommon::serialize(stream, orientation);
         return stream.getData();
       }
 
       virtual uint8_t *deserialize(uint8_t *read_ptr)
       {
         NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-
+        NS_NaviCommon::deserialize(stream, position);
+        NS_NaviCommon::deserialize(stream, orientation);
         return stream.getData();
       }
 
       virtual uint32_t serializationLength() const
       {
         uint32_t size = 0;
-
+        size += NS_NaviCommon::serializationLength(position);
+        size += NS_NaviCommon::serializationLength(orientation);
         return size;
       }
     };

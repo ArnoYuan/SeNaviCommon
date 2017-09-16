@@ -8,7 +8,7 @@
 #ifndef _DATATYPE_DATABASE_H_
 #define _DATATYPE_DATABASE_H_
 
-#include "Serialization/Serialization.h"
+#include "../../Serialization/Serialization.h"
 
 namespace NS_DataType
 {

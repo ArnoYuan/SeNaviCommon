@@ -10,7 +10,7 @@
 
 #include "DataBase.h"
 #include "DataHeader.h"
-#include "Serialization/Serialization.h"
+#include "../../Serialization/Serialization.h"
 
 namespace NS_DataType
 {
