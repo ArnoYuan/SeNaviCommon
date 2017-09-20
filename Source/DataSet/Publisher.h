@@ -25,14 +25,7 @@ namespace NS_DataSet
     Publisher (std::string name)
     {
       dataset_name = name;
-
-      shared_memory_object oper_shm (open_only, dataset_name.c_str (), read_write);
-
-      oper_region = mapped_region (oper_shm, read_write);
-
-      void* region_addr = oper_region.get_address ();
-
-      operation = static_cast<DataSetOperation*> (region_addr);
+      obtainOper ();
     }
 
     virtual ~Publisher ()
@@ -49,6 +42,19 @@ namespace NS_DataSet
     mapped_region ds_region;
 
   private:
+
+    void obtainOper ()
+    {
+      shared_memory_object oper_shm (open_or_create, dataset_name.c_str (), read_write);
+
+      offset_t oper_size = 0;
+      if (oper_shm.get_size (oper_size) && oper_size == sizeof (DataSetOperation))
+      {
+        oper_region = mapped_region (oper_shm, read_write);
+        void* region_addr = oper_region.get_address ();
+        operation = static_cast<DataSetOperation*> (region_addr);
+      }
+    }
 
     void* getSrv ()
     {
@@ -80,7 +86,11 @@ namespace NS_DataSet
     bool publish (DataType& ds)
     {
       if (!operation)
-        return false;
+      {
+        obtainOper ();
+        if (!operation)
+          return false;
+      }
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
 

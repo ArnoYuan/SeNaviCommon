@@ -40,6 +40,7 @@ namespace NS_ServiceType
     virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
     {
       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+      NS_NaviCommon::serialize(stream, result);
       NS_NaviCommon::serialize(stream, map);
       return stream.getData();
     }
@@ -47,6 +48,7 @@ namespace NS_ServiceType
     virtual uint8_t *deserialize(uint8_t *read_ptr)
     {
       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+      NS_NaviCommon::deserialize(stream, result);
       NS_NaviCommon::deserialize(stream, map);
       return stream.getData();
     }
@@ -54,6 +56,7 @@ namespace NS_ServiceType
     virtual uint32_t serializationLength() const
     {
       uint32_t size = 0;
+      size += NS_NaviCommon::serializationLength(result);
       size += NS_NaviCommon::serializationLength(map);
       return size;
     }
