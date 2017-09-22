@@ -15,7 +15,6 @@
 
 namespace NS_DataType
 {
-  
   template<class ContainerAllocator>
     struct OccupancyGrid_: public DataBase
     {
@@ -36,8 +35,8 @@ namespace NS_DataType
       DataHeader_<ContainerAllocator> header;
       MapMetaData_<ContainerAllocator> info;
 
-      std::vector<char,
-          typename ContainerAllocator::template rebind<char>::other> data;
+      std::vector<int8_t,
+          typename ContainerAllocator::template rebind<int8_t>::other> data;
 
       typedef boost::shared_ptr<OccupancyGrid_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<OccupancyGrid_<ContainerAllocator> const> ConstPtr;
