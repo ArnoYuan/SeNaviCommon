@@ -173,6 +173,7 @@ inline uint32_t serializationLength(const T& t)
 };
 
 #if defined(__arm__) || defined(__arm)
+/*
     CREATE_SIMPLE_SERIALIZER_ARM(uint8_t);
     CREATE_SIMPLE_SERIALIZER_ARM(int8_t);
     CREATE_SIMPLE_SERIALIZER_ARM(uint16_t);
@@ -181,6 +182,17 @@ inline uint32_t serializationLength(const T& t)
     CREATE_SIMPLE_SERIALIZER_ARM(int32_t);
     CREATE_SIMPLE_SERIALIZER_ARM(uint64_t);
     CREATE_SIMPLE_SERIALIZER_ARM(int64_t);
+    CREATE_SIMPLE_SERIALIZER_ARM(float);
+    CREATE_SIMPLE_SERIALIZER_ARM(double);
+    */
+    CREATE_SIMPLE_SERIALIZER_ARM(unsigned char);
+    CREATE_SIMPLE_SERIALIZER_ARM(char);
+    CREATE_SIMPLE_SERIALIZER_ARM(unsigned int);
+    CREATE_SIMPLE_SERIALIZER_ARM(int);
+    CREATE_SIMPLE_SERIALIZER_ARM(unsigned long);
+    CREATE_SIMPLE_SERIALIZER_ARM(long);
+    CREATE_SIMPLE_SERIALIZER_ARM(unsigned long long);
+    CREATE_SIMPLE_SERIALIZER_ARM(long long);
     CREATE_SIMPLE_SERIALIZER_ARM(float);
     CREATE_SIMPLE_SERIALIZER_ARM(double);
 #else
