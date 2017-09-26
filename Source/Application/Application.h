@@ -44,7 +44,7 @@ private:
   static void
   signalAction (int signal)
   {
-    instance->console.warning ("received a signal, id:%d!", signal);
+    instance->console.message ("received term signal, quitting!");
     instance->quit ();
     instance->running = false;
     instance->pending_thread.join ();
@@ -65,6 +65,10 @@ public:
   registerSignal ()
   {
     signal (SIGINT, signalAction);
+    signal (SIGKILL, signalAction);
+    signal (SIGQUIT, signalAction);
+    signal (SIGTERM, signalAction);
+    signal (SIGUSR1, signalAction);
   }
 
   void
