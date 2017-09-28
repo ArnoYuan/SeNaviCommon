@@ -128,7 +128,7 @@ public:
         return false;
       }
 
-      console.debug ("CPU has %d core, let application runs on core %d.", cpu_core_num, core_id);
+      console.message ("CPU has %d core, let application runs on core %d.", cpu_core_num, core_id);
 
       cpu_set_t mask;
       cpu_set_t get;
@@ -141,20 +141,17 @@ public:
         console.warning ("could not set CPU affinity, continuing");
       }
 
-      while (true)
+      CPU_ZERO(&get);
+      if (sched_getaffinity(0, sizeof(get), &get) == -1)
       {
-        CPU_ZERO(&get);
-        if (sched_getaffinity(0, sizeof(get), &get) == -1)
+        console.warning ("cound not get cpu affinity");
+      }
+      for (int i = 0; i < cpu_core_num; i++)
+      {
+        if (CPU_ISSET(i, &get))
         {
-          console.warning ("cound not get cpu affinity");
-        }
-        for (int i = 0; i < cpu_core_num; i++)
-        {
-          if (CPU_ISSET(i, &get))
-          {
-            console.debug ("this process %d is running processor : %d", getpid(), i);
-            break;
-          }
+          console.debug ("this process %d is running processor : %d", getpid(), i);
+          break;
         }
       }
     }
