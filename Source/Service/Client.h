@@ -27,14 +27,8 @@ namespace NS_Service
     Client (std::string name)
     {
       service_name = name;
-
-      shared_memory_object oper_shm (open_only, service_name.c_str (), read_write);
-
-      oper_region = mapped_region (oper_shm, read_write);
-
-      void* region_addr = oper_region.get_address ();
-
-      operation = static_cast<ServiceOperation*> (region_addr);
+      operation = NULL;
+      obtainOper ();
     }
 
     virtual ~Client ()
@@ -49,11 +43,42 @@ namespace NS_Service
     mapped_region oper_region;
     mapped_region srv_region;
 
+    void obtainOper ()
+    {
+      shared_memory_object oper_shm;
+
+      try
+      {
+        oper_shm = shared_memory_object (open_only, service_name.c_str (), read_write);
+      }catch (interprocess_exception&_exception)
+      {
+        return;
+      }
+
+      offset_t oper_size = 0;
+      if (oper_shm.get_size (oper_size) && oper_size == sizeof (ServiceOperation))
+      {
+        oper_region = mapped_region (oper_shm, read_write);
+
+        void* region_addr = oper_region.get_address ();
+        if (region_addr)
+        {
+          operation = static_cast<ServiceOperation*> (region_addr);
+        }
+      }
+    }
+
   public:
     bool call (SrvType& srv)
     {
       if (!operation)
-        return false;
+      {
+        obtainOper ();
+        if (!operation)
+        {
+          return false;
+        }
+      }
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
 

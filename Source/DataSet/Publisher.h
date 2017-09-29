@@ -25,6 +25,7 @@ namespace NS_DataSet
     Publisher (std::string name)
     {
       dataset_name = name;
+      operation = NULL;
       obtainOper ();
     }
 
@@ -45,14 +46,26 @@ namespace NS_DataSet
 
     void obtainOper ()
     {
-      shared_memory_object oper_shm (open_or_create, dataset_name.c_str (), read_write);
+      shared_memory_object oper_shm;
+
+      try
+      {
+        oper_shm = shared_memory_object (open_only, dataset_name.c_str (), read_write);
+      }catch (interprocess_exception&_exception)
+      {
+        return;
+      }
 
       offset_t oper_size = 0;
       if (oper_shm.get_size (oper_size) && oper_size == sizeof (DataSetOperation))
       {
         oper_region = mapped_region (oper_shm, read_write);
+
         void* region_addr = oper_region.get_address ();
-        operation = static_cast<DataSetOperation*> (region_addr);
+        if (region_addr)
+        {
+          operation = static_cast<DataSetOperation*> (region_addr);
+        }
       }
     }
 
@@ -89,7 +102,9 @@ namespace NS_DataSet
       {
         obtainOper ();
         if (!operation)
+        {
           return false;
+        }
       }
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
