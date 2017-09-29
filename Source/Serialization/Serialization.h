@@ -175,8 +175,6 @@ inline uint32_t serializationLength(const T& t)
 
 #if defined(__arm__) || defined(__arm)
     CREATE_SIMPLE_SERIALIZER_ARM(char);
-    CREATE_SIMPLE_SERIALIZER_ARM(unsigned short);
-    CREATE_SIMPLE_SERIALIZER_ARM(short);
     CREATE_SIMPLE_SERIALIZER_ARM(unsigned long);
     CREATE_SIMPLE_SERIALIZER_ARM(long);
 
