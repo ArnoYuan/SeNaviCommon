@@ -36,8 +36,8 @@ namespace NS_DataType
 
       DataHeader_<ContainerAllocator> header;
 
-      std::basic_string<char, std::char_traits<char>,
-          typename ContainerAllocator::template rebind<char>::other> child_frame_id;
+      std::basic_string<int8_t, std::char_traits<int8_t>,
+          typename ContainerAllocator::template rebind<int8_t>::other> child_frame_id;
 
       Transform_<ContainerAllocator> transform;
 

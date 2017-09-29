@@ -36,8 +36,8 @@ namespace NS_DataType
 
       NS_NaviCommon::Time map_load_time;
       float resolution;
-      int width;
-      int height;
+      int16_t width;
+      int16_t height;
 
       Pose_<ContainerAllocator> origin;
 

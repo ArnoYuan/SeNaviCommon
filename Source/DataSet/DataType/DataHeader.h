@@ -29,8 +29,8 @@ namespace NS_DataType
       unsigned long seq;
       NS_NaviCommon::Time stamp;
 
-      std::basic_string<char, std::char_traits<char>,
-          typename ContainerAllocator::template rebind<char>::other> frame_id;
+      std::basic_string<int8_t, std::char_traits<int8_t>,
+          typename ContainerAllocator::template rebind<int8_t>::other> frame_id;
 
       typedef boost::shared_ptr<DataHeader_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<DataHeader_<ContainerAllocator> const> ConstPtr;

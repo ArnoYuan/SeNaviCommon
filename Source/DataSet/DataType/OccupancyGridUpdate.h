@@ -41,8 +41,8 @@ namespace NS_DataType
       int width;
       int height;
 
-      std::vector<char,
-          typename ContainerAllocator::template rebind<char>::other> data;
+      std::vector<int8_t,
+          typename ContainerAllocator::template rebind<int8_t>::other> data;
 
       typedef boost::shared_ptr<OccupancyGridUpdate_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<OccupancyGridUpdate_<ContainerAllocator> const> ConstPtr;
