@@ -201,6 +201,38 @@ inline uint32_t serializationLength(const T& t)
 */
 
 /**
+ * \brief Serializer specialized for char (serialized as int8)
+ */
+template<> struct Serializer<char>
+{
+  template<typename Stream> inline static void write(Stream& stream, const char v)
+  {
+    int8_t b = (int8_t)v;
+#if defined(__arm__) || defined(__arm)
+    memcpy(stream.advance(1), &b, 1 );
+#else
+    *reinterpret_cast<int8_t*>(stream.advance(1)) = b;
+#endif
+  }
+
+  template<typename Stream> inline static void read(Stream& stream, char& v)
+  {
+    int8_t b;
+#if defined(__arm__) || defined(__arm)
+    memcpy(&b, stream.advance(1), 1 );
+#else
+    b = *reinterpret_cast<int8_t*>(stream.advance(1));
+#endif
+    v = (char)b;
+  }
+
+  inline static uint32_t serializedLength(char)
+  {
+    return 1;
+  }
+};
+
+/**
  * \brief Serializer specialized for bool (serialized as uint8)
  */
 template<> struct Serializer<bool>

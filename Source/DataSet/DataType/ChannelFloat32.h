@@ -32,10 +32,10 @@ namespace NS_DataType
       }
       ;
 
-      std::basic_string<int8_t, std::char_traits<int8_t>,
-          typename ContainerAllocator::template rebind<int8_t>::other> name;
-      std::basic_string<int8_t, std::char_traits<int8_t>,
-          typename ContainerAllocator::template rebind<int8_t>::other> values;
+      std::basic_string<char, std::char_traits<char>,
+          typename ContainerAllocator::template rebind<char>::other> name;
+      std::basic_string<char, std::char_traits<char>,
+          typename ContainerAllocator::template rebind<char>::other> values;
 
       typedef boost::shared_ptr<ChannelFloat32_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<ChannelFloat32_<ContainerAllocator> const> ConstPtr;
