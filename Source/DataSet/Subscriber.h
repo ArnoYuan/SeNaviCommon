@@ -28,24 +28,7 @@ namespace NS_DataSet
     {
       dataset_name = name;
       callback = cb;
-
-      shared_memory_object::remove (dataset_name.c_str ());
-
-      shared_memory_object oper_shm (create_only, dataset_name.c_str (), read_write);
-
-      oper_shm.truncate (sizeof (DataSetOperation));
-
-      oper_region = mapped_region (oper_shm, read_write);
-
-      void* region_addr = oper_region.get_address ();
-
-      operation = new (region_addr) DataSetOperation;
-
-      if (operation)
-      {
-        active = true;
-        dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
-      }
+      makeSrv ();
     }
 
     virtual ~Subscriber ()
@@ -71,6 +54,36 @@ namespace NS_DataSet
 
     bool active;
   private:
+
+    void makeSrv ()
+    {
+      shared_memory_object::remove (dataset_name.c_str ());
+
+      try{
+        shared_memory_object oper_shm (create_only, dataset_name.c_str (), read_write);
+
+        oper_shm.truncate (sizeof (DataSetOperation));
+
+        oper_region = mapped_region (oper_shm, read_write);
+
+        void* region_addr = oper_region.get_address ();
+
+        operation = new (region_addr) DataSetOperation;
+
+      }catch (interprocess_exception&_exception)
+      {
+        printf ("create dataset fail!\n");
+        return;
+      }
+
+      if (operation)
+      {
+        active = true;
+        dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
+      }
+      return;
+    }
+
     void* getSrv ()
     {
       std::string ds_shm_name = dataset_name + "_DS";

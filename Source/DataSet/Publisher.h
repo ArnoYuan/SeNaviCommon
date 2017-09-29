@@ -47,27 +47,26 @@ namespace NS_DataSet
     void obtainOper ()
     {
       shared_memory_object oper_shm;
-printf ("===1===\n");
+
       try
       {
         oper_shm = shared_memory_object (open_only, dataset_name.c_str (), read_write);
       }catch (interprocess_exception&_exception)
       {
-        printf ("===x1===\n");
         return;
       }
-      printf ("===2===\n");
+
       offset_t oper_size = 0;
       if (oper_shm.get_size (oper_size) && oper_size == sizeof (DataSetOperation))
       {
-        printf ("===3===\n");
+
         oper_region = mapped_region (oper_shm, read_write);
-        printf ("===4===\n");
+
         void* region_addr = oper_region.get_address ();
         if (region_addr)
         {
-          printf ("===5===\n");
           operation = static_cast<DataSetOperation*> (region_addr);
+          operation->status = DATASET_IDLE;
         }
       }
     }
@@ -109,7 +108,6 @@ printf ("===1===\n");
           return false;
         }
       }
-      printf ("===6===\n");
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
 

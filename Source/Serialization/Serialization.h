@@ -189,6 +189,7 @@ inline uint32_t serializationLength(const T& t)
     CREATE_SIMPLE_SERIALIZER_ARM(float);
     CREATE_SIMPLE_SERIALIZER_ARM(double);
 #else
+    CREATE_SIMPLE_SERIALIZER(char);
     CREATE_SIMPLE_SERIALIZER(uint8_t);
     CREATE_SIMPLE_SERIALIZER(int8_t);
     CREATE_SIMPLE_SERIALIZER(uint16_t);

@@ -35,6 +35,7 @@ public:
 
 protected:
   bool running;
+  bool pending_;
 
   NS_NaviCommon::Console console;
 
@@ -46,7 +47,7 @@ private:
   {
     instance->console.message ("received term signal, quitting!");
     instance->quit ();
-    instance->running = false;
+    instance->pending_ = false;
     instance->pending_thread.join ();
   }
 
@@ -156,7 +157,7 @@ public:
       }
     }
 
-    running = true;
+    pending_ = true;
     pending_thread = boost::thread (boost::bind (&Application::working, this));
 
     return true;
