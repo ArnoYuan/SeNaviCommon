@@ -26,6 +26,7 @@ namespace NS_DataSet
   public:
     Subscriber (std::string name, DataCallbackType cb)
     {
+      shared_memory_object::remove (dataset_name.c_str ());
       dataset_name = name;
       callback = cb;
       makeSrv ();

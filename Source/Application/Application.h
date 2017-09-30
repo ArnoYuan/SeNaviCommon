@@ -55,7 +55,7 @@ private:
   working ()
   {
     NS_NaviCommon::Rate rate (10);
-    while (running)
+    while (pending_ && running)
     {
       rate.sleep ();
     }

@@ -26,6 +26,7 @@ namespace NS_DataSet
     {
       dataset_name = name;
       operation = NULL;
+      shared_memory_object::remove (dataset_name.c_str ());
       obtainOper ();
     }
 
