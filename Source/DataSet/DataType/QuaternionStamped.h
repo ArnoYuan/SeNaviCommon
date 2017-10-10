@@ -17,7 +17,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct QuaternionStamped_: public DataBase
+    //struct QuaternionStamped_: public DataBase
+    struct QuaternionStamped_
     {
       typedef QuaternionStamped_<ContainerAllocator> Type;
     public:
@@ -38,7 +39,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<QuaternionStamped_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<QuaternionStamped_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -63,6 +64,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(quaternion);
         return size;
       }
+      */
     };
   
   typedef QuaternionStamped_<std::allocator<void> > QuaternionStamped;

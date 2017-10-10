@@ -10,7 +10,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct TwistStamped_: public DataBase
+    //struct TwistStamped_: public DataBase
+    struct TwistStamped_
     {
       typedef TwistStamped_<ContainerAllocator> Type;
     public:
@@ -32,7 +33,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<TwistStamped_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<TwistStamped_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -57,6 +58,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(twist);
         return size;
       }
+      */
     };
   
   typedef TwistStamped_<std::allocator<void> > TwistStamped;

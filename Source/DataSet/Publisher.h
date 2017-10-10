@@ -12,6 +12,7 @@
 #include <boost/interprocess/mapped_region.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include "DataSet.h"
+#include "../Serialization/Serialization.h"
 
 namespace NS_DataSet
 {
@@ -26,7 +27,6 @@ namespace NS_DataSet
     {
       dataset_name = name;
       operation = NULL;
-      shared_memory_object::remove (dataset_name.c_str ());
       obtainOper ();
     }
 
@@ -52,7 +52,7 @@ namespace NS_DataSet
       try
       {
         oper_shm = shared_memory_object (open_only, dataset_name.c_str (), read_write);
-      }catch (interprocess_exception&_exception)
+      }catch (interprocess_exception& exception)
       {
         return;
       }
@@ -112,13 +112,14 @@ namespace NS_DataSet
 
       scoped_lock<interprocess_mutex> lock (operation->lock);
 
-      operation->buf_len = ds.serializationLength ();
+      operation->buf_len = NS_NaviCommon::serializationLength (ds);
 
       resize (operation->buf_len);
 
       unsigned char* addr = (unsigned char*)getSrv ();
 
-      ds.serialize ((unsigned char*)addr, operation->buf_len);
+      NS_NaviCommon::OStream stream (addr, operation->buf_len);
+      NS_NaviCommon::serialize (stream, ds);
 
       operation->status = DATASET_PROCESSING;
       operation->req_cond.notify_all ();

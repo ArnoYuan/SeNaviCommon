@@ -19,7 +19,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct Position2DInt_: public DataBase
+    //struct Position2DInt_: public DataBase
+    struct Position2DInt_
     {
       typedef Position2DInt_<ContainerAllocator> Type;
 
@@ -39,7 +40,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<Position2DInt_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<Position2DInt_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -64,6 +65,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(y);
         return size;
       }
+      */
     };
   
   typedef Position2DInt_<std::allocator<void> > Position2DInt;

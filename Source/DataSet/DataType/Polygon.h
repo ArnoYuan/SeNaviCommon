@@ -17,7 +17,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct Polygon_: public DataBase
+    //struct Polygon_: public DataBase
+    struct Polygon_
     {
       typedef Polygon_<ContainerAllocator> Type;
     public:
@@ -39,7 +40,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<Polygon_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<Polygon_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -61,6 +62,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(points);
         return size;
       }
+      */
     };
   
   typedef Polygon_<std::allocator<void> > Polygon;

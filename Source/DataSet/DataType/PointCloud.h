@@ -18,7 +18,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct PointCloud_: public DataBase
+    //struct PointCloud_: public DataBase
+    struct PointCloud_
     {
       typedef PointCloud_<ContainerAllocator> Type;
     public:
@@ -44,7 +45,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<PointCloud_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<PointCloud_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -72,6 +73,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(channels);
         return size;
       }
+      */
     };
   
   typedef PointCloud_<std::allocator<void> > PointCloud;

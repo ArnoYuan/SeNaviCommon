@@ -19,17 +19,11 @@
 #include "../Console/Console.h"
 #include <boost/program_options.hpp>
 
-class Application;
-
-static Application* instance;
-
 class Application
 {
 public:
   Application ()
-  {
-    instance = this;
-  };
+  {};
   virtual
   ~Application () {};
 
@@ -42,14 +36,6 @@ protected:
   boost::thread pending_thread;
 
 private:
-  static void
-  signalAction (int signal)
-  {
-    instance->console.message ("received term signal, quitting!");
-    instance->quit ();
-    instance->pending_ = false;
-    instance->pending_thread.join ();
-  }
 
   void
   working ()
@@ -62,19 +48,12 @@ private:
   }
 
 public:
-  void
-  registerSignal ()
-  {
-    signal (SIGINT, signalAction);
-    signal (SIGKILL, signalAction);
-    signal (SIGQUIT, signalAction);
-    signal (SIGTERM, signalAction);
-    signal (SIGUSR1, signalAction);
-  }
 
   void
   pending ()
   {
+    pending_ = true;
+    pending_thread = boost::thread (boost::bind (&Application::working, this));
     pending_thread.join ();
   }
 
@@ -157,9 +136,6 @@ public:
       }
     }
 
-    pending_ = true;
-    pending_thread = boost::thread (boost::bind (&Application::working, this));
-
     return true;
   }
 
@@ -167,6 +143,12 @@ public:
   run () {};
   virtual void
   quit () {};
+
+  void terminate ()
+  {
+    pending_ = false;
+    pending_thread.join ();
+  }
 
   bool
   isRunning ()

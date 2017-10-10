@@ -17,7 +17,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct PointStamped_: public DataBase
+    //struct PointStamped_: public DataBase
+    struct PointStamped_
     {
       typedef PointStamped_<ContainerAllocator> Type;
     public:
@@ -38,7 +39,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<PointStamped_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<PointStamped_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -63,6 +64,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(point);
         return size;
       }
+      */
     };
   
   typedef PointStamped_<std::allocator<void> > PointStamped;

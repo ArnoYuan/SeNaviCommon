@@ -11,7 +11,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct PoseWithCovarianceStamped_: public DataBase
+    //struct PoseWithCovarianceStamped_: public DataBase
+    struct PoseWithCovarianceStamped_
     {
       typedef PoseWithCovarianceStamped_<ContainerAllocator> Type;
     public:
@@ -34,7 +35,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<PoseWithCovarianceStamped_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<PoseWithCovarianceStamped_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -59,7 +60,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(pose);
         return size;
       }
-
+*/
     };
   
   typedef PoseWithCovarianceStamped_<std::allocator<void> > PoseWithCovarianceStamped;

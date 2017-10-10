@@ -46,7 +46,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<OccupancyGridUpdate_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<OccupancyGridUpdate_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -83,6 +83,8 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(data);
         return size;
       }
+      */
+
     };
   
   typedef OccupancyGridUpdate_<std::allocator<void> > OccupancyGridUpdate;

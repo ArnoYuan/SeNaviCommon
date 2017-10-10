@@ -16,7 +16,8 @@ namespace NS_DataType
 {
   
   template<class ContainerAllocator>
-    struct TransformData_: public DataBase
+    //struct TransformData_: public DataBase
+    struct TransformData_
     {
       typedef TransformData_<ContainerAllocator> Type;
     public:
@@ -38,7 +39,7 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<TransformData_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<TransformData_<ContainerAllocator> const> ConstPtr;
-
+/*
     public:
       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
       {
@@ -60,6 +61,7 @@ namespace NS_DataType
         size += NS_NaviCommon::serializationLength(transforms);
         return size;
       }
+      */
     };
   
   typedef TransformData_<std::allocator<void> > TransformData;

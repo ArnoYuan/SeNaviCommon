@@ -50,7 +50,7 @@ namespace NS_Service
       try
       {
         oper_shm = shared_memory_object (open_only, service_name.c_str (), read_write);
-      }catch (interprocess_exception&_exception)
+      }catch (interprocess_exception& exception)
       {
         return;
       }
@@ -110,7 +110,9 @@ namespace NS_Service
 
       void* region_addr = srv_region.get_address ();
 
-      srv.deserialize ((unsigned char*)region_addr);
+      NS_NaviCommon::IStream stream ((unsigned char*)region_addr, operation->buf_len);
+
+      NS_NaviCommon::deserialize (stream, srv);
 
       return true;
     }

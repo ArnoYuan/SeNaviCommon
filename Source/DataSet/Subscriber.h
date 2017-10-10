@@ -13,6 +13,7 @@
 #include <boost/interprocess/mapped_region.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include "DataSet.h"
+#include "../Serialization/Serialization.h"
 
 namespace NS_DataSet
 {
@@ -26,7 +27,6 @@ namespace NS_DataSet
   public:
     Subscriber (std::string name, DataCallbackType cb)
     {
-      shared_memory_object::remove (dataset_name.c_str ());
       dataset_name = name;
       callback = cb;
       makeSrv ();
@@ -34,7 +34,6 @@ namespace NS_DataSet
 
     virtual ~Subscriber ()
     {
-      shared_memory_object::remove (dataset_name.c_str ());
       if (active)
       {
         active = false;
@@ -58,10 +57,10 @@ namespace NS_DataSet
 
     void makeSrv ()
     {
-      shared_memory_object::remove (dataset_name.c_str ());
+      //shared_memory_object::remove (dataset_name.c_str ());
 
       try{
-        shared_memory_object oper_shm (create_only, dataset_name.c_str (), read_write);
+        shared_memory_object oper_shm (open_or_create, dataset_name.c_str (), read_write);
 
         oper_shm.truncate (sizeof (DataSetOperation));
 
@@ -77,11 +76,9 @@ namespace NS_DataSet
         return;
       }
 
-      if (operation)
-      {
-        active = true;
-        dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
-      }
+      active = true;
+      dataset_thread = boost::thread (boost::bind (&Subscriber::processor, this));
+
       return;
     }
 
@@ -104,20 +101,24 @@ namespace NS_DataSet
       {
         if (operation)
         {
+          bool timeout = false;
+
           scoped_lock<interprocess_mutex> lock (operation->lock);
 
           while (operation->status == DATASET_IDLE)
           {
-            operation->req_cond.timed_wait (lock, (boost::get_system_time () + boost::posix_time::seconds (1)));
+            timeout = operation->req_cond.timed_wait (lock, (boost::get_system_time () + boost::posix_time::seconds (1)));
           }
 
-          if (callback)
+          if (callback && !timeout)
           {
             unsigned char* addr = (unsigned char*)getSrv ();
 
             DataType ds;
 
-            ds.deserialize (addr);
+            NS_NaviCommon::IStream stream (addr, operation->buf_len);
+
+            NS_NaviCommon::deserialize (stream, ds);
 
             callback (ds);
 

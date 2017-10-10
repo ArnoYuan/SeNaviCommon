@@ -30,29 +30,11 @@ namespace NS_Service
       service_name = name;
       service_entry = entry;
 
-      shared_memory_object::remove (service_name.c_str ());
-
-      shared_memory_object oper_shm (create_only, service_name.c_str (), read_write);
-
-      oper_shm.truncate (sizeof (ServiceOperation));
-
-      oper_region = mapped_region (oper_shm, read_write);
-
-      void* region_addr = oper_region.get_address ();
-
-      operation = new (region_addr) ServiceOperation;
-
-      if (operation)
-      {
-        active = true;
-        service_thread = boost::thread (boost::bind (&Server::processor, this));
-      }
-
+      makeSrv ();
     }
 
     virtual ~Server ()
     {
-      shared_memory_object::remove (service_name.c_str ());
       if (active)
       {
         active = false;
@@ -77,6 +59,31 @@ namespace NS_Service
     bool active;
 
   private:
+
+    void makeSrv ()
+    {
+      //shared_memory_object::remove (service_name.c_str ());
+
+      try
+      {
+        shared_memory_object oper_shm (open_or_create, service_name.c_str (), read_write);
+
+        oper_shm.truncate (sizeof (ServiceOperation));
+
+        oper_region = mapped_region (oper_shm, read_write);
+
+        void* region_addr = oper_region.get_address ();
+
+        operation = new (region_addr) ServiceOperation;
+      }catch (interprocess_exception& exception)
+      {
+        printf ("create service fail!\n");
+        return;
+      }
+
+      active = true;
+      service_thread = boost::thread (boost::bind (&Server::processor, this));
+    }
 
     void* getSrv ()
     {
@@ -125,10 +132,13 @@ namespace NS_Service
 
             service_entry (srv);
 
-            resize (srv.serializationLength ());
+            operation->buf_len = NS_NaviCommon::serializationLength (srv);
+
+            resize (operation->buf_len);
             addr = (unsigned char*)getSrv ();
 
-            srv.serialize (addr, operation->buf_len);
+            NS_NaviCommon::OStream stream (addr, operation->buf_len);
+            NS_NaviCommon::serialize (stream, srv);
 
             operation->status = SERVICE_IDLE;
             operation->rep_cond.notify_all ();
