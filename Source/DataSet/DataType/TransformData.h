@@ -14,60 +14,60 @@
 
 namespace NS_DataType
 {
-  
-  template<class ContainerAllocator>
-    //struct TransformData_: public DataBase
-    struct TransformData_
+
+  template< class ContainerAllocator >
+  //struct TransformData_: public DataBase
+  struct TransformData_
+  {
+    typedef TransformData_< ContainerAllocator > Type;
+  public:
+    TransformData_()
+        : transforms()
     {
-      typedef TransformData_<ContainerAllocator> Type;
-    public:
-      TransformData_ ()
-          : transforms ()
-      {
-      }
-      ;
+    }
+    ;
 
-      TransformData_ (const ContainerAllocator& allocator)
-          : transforms (allocator)
-      {
-      }
-      ;
+    TransformData_(const ContainerAllocator& allocator)
+        : transforms(allocator)
+    {
+    }
+    ;
 
-      std::vector<TransformStamped_<ContainerAllocator>,
-          typename ContainerAllocator::template rebind<
-              TransformStamped_<ContainerAllocator> >::other> transforms;
+    std::vector< TransformStamped_< ContainerAllocator >,
+        typename ContainerAllocator::template rebind<
+            TransformStamped_< ContainerAllocator > >::other > transforms;
 
-      typedef boost::shared_ptr<TransformData_<ContainerAllocator> > Ptr;
-      typedef boost::shared_ptr<TransformData_<ContainerAllocator> const> ConstPtr;
-      /*
-       public:
-       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
-       {
-       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-       NS_NaviCommon::serialize(stream, transforms);
-       return stream.getData();
-       }
+    typedef boost::shared_ptr< TransformData_< ContainerAllocator > > Ptr;
+    typedef boost::shared_ptr< TransformData_< ContainerAllocator > const > ConstPtr;
+    /*
+     public:
+     virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+     {
+     NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+     NS_NaviCommon::serialize(stream, transforms);
+     return stream.getData();
+     }
 
-       virtual uint8_t *deserialize(uint8_t *read_ptr)
-       {
-       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-       NS_NaviCommon::deserialize(stream, transforms);
-       return stream.getData();
-       }
+     virtual uint8_t *deserialize(uint8_t *read_ptr)
+     {
+     NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+     NS_NaviCommon::deserialize(stream, transforms);
+     return stream.getData();
+     }
 
-       virtual uint32_t serializationLength() const
-       {
-       uint32_t size = 0;
-       size += NS_NaviCommon::serializationLength(transforms);
-       return size;
-       }
-       */
-    };
-  
-  typedef TransformData_<std::allocator<void> > TransformData;
-  
-  typedef boost::shared_ptr<TransformData> TransformDataPtr;
-  typedef boost::shared_ptr<TransformData const> TransformDataConstPtr;
+     virtual uint32_t serializationLength() const
+     {
+     uint32_t size = 0;
+     size += NS_NaviCommon::serializationLength(transforms);
+     return size;
+     }
+     */
+  };
+
+  typedef TransformData_< std::allocator< void > > TransformData;
+
+  typedef boost::shared_ptr< TransformData > TransformDataPtr;
+  typedef boost::shared_ptr< TransformData const > TransformDataConstPtr;
 
 }
 

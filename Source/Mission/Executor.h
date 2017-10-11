@@ -13,11 +13,11 @@ namespace NS_NaviCommon
   class Executor
   {
   public:
-    Executor ();
+    Executor();
     virtual
-    ~Executor ();
+    ~Executor();
   public:
-    
+
   };
 
 }

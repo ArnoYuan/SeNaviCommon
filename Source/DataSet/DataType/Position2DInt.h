@@ -17,61 +17,61 @@
 
 namespace NS_DataType
 {
-  
-  template<class ContainerAllocator>
-    //struct Position2DInt_: public DataBase
-    struct Position2DInt_
+
+  template< class ContainerAllocator >
+  //struct Position2DInt_: public DataBase
+  struct Position2DInt_
+  {
+    typedef Position2DInt_< ContainerAllocator > Type;
+
+    Position2DInt_()
+        : x(0), y(0)
     {
-      typedef Position2DInt_<ContainerAllocator> Type;
+    }
 
-      Position2DInt_ ()
-          : x (0), y (0)
-      {
-      }
-      
-      Position2DInt_ (const ContainerAllocator& _alloc)
-          : x (0), y (0)
-      {
-      }
-      
-      typedef long _x_type, _y_type;
+    Position2DInt_(const ContainerAllocator& _alloc)
+        : x(0), y(0)
+    {
+    }
 
-      long x, y;
+    typedef long _x_type, _y_type;
 
-      typedef boost::shared_ptr<Position2DInt_<ContainerAllocator> > Ptr;
-      typedef boost::shared_ptr<Position2DInt_<ContainerAllocator> const> ConstPtr;
-      /*
-       public:
-       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
-       {
-       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-       NS_NaviCommon::serialize(stream, x);
-       NS_NaviCommon::serialize(stream, y);
-       return stream.getData();
-       }
+    long x, y;
 
-       virtual uint8_t *deserialize(uint8_t *read_ptr)
-       {
-       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-       NS_NaviCommon::deserialize(stream, x);
-       NS_NaviCommon::deserialize(stream, y);
-       return stream.getData();
-       }
+    typedef boost::shared_ptr< Position2DInt_< ContainerAllocator > > Ptr;
+    typedef boost::shared_ptr< Position2DInt_< ContainerAllocator > const > ConstPtr;
+    /*
+     public:
+     virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+     {
+     NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+     NS_NaviCommon::serialize(stream, x);
+     NS_NaviCommon::serialize(stream, y);
+     return stream.getData();
+     }
 
-       virtual uint32_t serializationLength() const
-       {
-       uint32_t size = 0;
-       size += NS_NaviCommon::serializationLength(x);
-       size += NS_NaviCommon::serializationLength(y);
-       return size;
-       }
-       */
-    };
-  
-  typedef Position2DInt_<std::allocator<void> > Position2DInt;
-  
-  typedef boost::shared_ptr<Point> Position2DIntPtr;
-  typedef boost::shared_ptr<Point const> Position2DIntConstPtr;
+     virtual uint8_t *deserialize(uint8_t *read_ptr)
+     {
+     NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+     NS_NaviCommon::deserialize(stream, x);
+     NS_NaviCommon::deserialize(stream, y);
+     return stream.getData();
+     }
+
+     virtual uint32_t serializationLength() const
+     {
+     uint32_t size = 0;
+     size += NS_NaviCommon::serializationLength(x);
+     size += NS_NaviCommon::serializationLength(y);
+     return size;
+     }
+     */
+  };
+
+  typedef Position2DInt_< std::allocator< void > > Position2DInt;
+
+  typedef boost::shared_ptr< Point > Position2DIntPtr;
+  typedef boost::shared_ptr< Point const > Position2DIntConstPtr;
 
 }
 

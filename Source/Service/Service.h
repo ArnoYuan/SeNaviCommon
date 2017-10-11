@@ -20,9 +20,10 @@ namespace NS_Service
 {
   typedef enum
   {
-    SERVICE_IDLE, SERVICE_PROCESSING,
+    SERVICE_IDLE,
+    SERVICE_PROCESSING,
   } ServiceStatus;
-  
+
   typedef struct
   {
     boost::interprocess::interprocess_mutex lock;

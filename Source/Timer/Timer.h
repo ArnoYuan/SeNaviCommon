@@ -5,7 +5,7 @@
 
 namespace NS_NaviCommon
 {
-  
+
   /**
    * \brief Manages a timer callback
    *
@@ -17,85 +17,81 @@ namespace NS_NaviCommon
   class Timer
   {
   public:
-    Timer ()
+    Timer()
     {
     }
-    Timer (const Timer& rhs);
-    ~Timer ();
+    Timer(const Timer& rhs);
+    ~Timer();
 
     /**
      * \brief Start the timer.  Does nothing if the timer is already started.
      */
     void
-    start ();
+    start();
     /**
      * \brief Stop the timer.  Once this call returns, no more callbacks will be called.  Does
      * nothing if the timer is already stopped.
      */
     void
-    stop ();
+    stop();
 
     /**
      * \brief Returns whether or not the timer has any pending events to call.
      */
     bool
-    hasPending ();
+    hasPending();
 
     /**
      * \brief Set the period of this timer
      * \param reset Whether to reset the timer. If true, timer ignores elapsed time and next cb occurs at now()+period
      */
     void
-    setPeriod (const Duration& period, bool reset = true);
+    setPeriod(const Duration& period, bool reset = true);
 
-    bool
-    isValid ()
+    bool isValid()
     {
-      return impl_ && impl_->isValid ();
+      return impl_ && impl_->isValid();
     }
-    operator void* ()
+    operator void*()
     {
-      return isValid () ? (void*) 1 : (void*) 0;
+      return isValid() ? (void*)1 : (void*)0;
     }
-    
-    bool
-    operator< (const Timer& rhs)
+
+    bool operator<(const Timer& rhs)
     {
       return impl_ < rhs.impl_;
     }
-    
-    bool
-    operator== (const Timer& rhs)
+
+    bool operator==(const Timer& rhs)
     {
       return impl_ == rhs.impl_;
     }
-    
-    bool
-    operator!= (const Timer& rhs)
+
+    bool operator!=(const Timer& rhs)
     {
       return impl_ != rhs.impl_;
     }
-    
+
   private:
-    Timer (const TimerOptions& ops);
+    Timer(const TimerOptions& ops);
 
     class Impl
     {
     public:
-      Impl ();
-      ~Impl ();
+      Impl();
+      ~Impl();
 
       bool
-      isValid ();
+      isValid();
       bool
-      hasPending ();
+      hasPending();
       void
-      setPeriod (const Duration& period, bool reset = true);
+      setPeriod(const Duration& period, bool reset = true);
 
       void
-      start ();
+      start();
       void
-      stop ();
+      stop();
 
       bool started_;
       int32_t timer_handle_;
@@ -107,8 +103,8 @@ namespace NS_NaviCommon
       bool has_tracked_object_;
       bool oneshot_;
     };
-    typedef boost::shared_ptr<Impl> ImplPtr;
-    typedef boost::weak_ptr<Impl> ImplWPtr;
+    typedef boost::shared_ptr< Impl > ImplPtr;
+    typedef boost::weak_ptr< Impl > ImplWPtr;
 
     ImplPtr impl_;
 

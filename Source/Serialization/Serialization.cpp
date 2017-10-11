@@ -2,10 +2,9 @@
 
 namespace NS_NaviCommon
 {
-  void
-  throwStreamOverrun ()
+  void throwStreamOverrun()
   {
-    throw StreamOverrunException ("Buffer Overrun");
+    throw StreamOverrunException("Buffer Overrun");
   }
 }
 

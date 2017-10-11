@@ -7,108 +7,108 @@
 
 namespace NS_NaviCommon
 {
-  
+
   class AutoVal
   {
   public:
-    AutoVal ()
+    AutoVal()
     {
     }
     ;
     explicit
-    AutoVal (const std::string&);
+    AutoVal(const std::string&);
     explicit
-    AutoVal (double);
+    AutoVal(double);
     explicit
-    AutoVal (int);
+    AutoVal(int);
     explicit
-    AutoVal (unsigned int);
+    AutoVal(unsigned int);
     explicit
-    AutoVal (bool);
+    AutoVal(bool);
     explicit
-    AutoVal (const char*);
+    AutoVal(const char*);
 
-    AutoVal (const AutoVal&);
+    AutoVal(const AutoVal&);
     AutoVal&
-    operator= (const AutoVal&);
+    operator=(const AutoVal&);
 
     AutoVal&
-    operator= (double);
+    operator=(double);
     AutoVal&
-    operator= (int);
+    operator=(int);
     AutoVal&
-    operator= (unsigned int);
+    operator=(unsigned int);
     AutoVal&
-    operator= (bool);
+    operator=(bool);
     AutoVal&
-    operator= (const std::string&);
+    operator=(const std::string&);
 
   public:
-    operator std::string () const;
-    operator double () const;
-    operator int () const;
-    operator unsigned int () const;
-    operator bool () const;
+    operator std::string() const;
+    operator double() const;
+    operator int() const;
+    operator unsigned int() const;
+    operator bool() const;
 
   protected:
     std::string
-    toLower (const std::string& source) const;
+    toLower(const std::string& source) const;
 
   private:
     std::string m_value;
   };
-  
+
   class ConfigFile
   {
-    std::map<std::string, AutoVal> m_content;
+    std::map< std::string, AutoVal > m_content;
 
   public:
-    ConfigFile ();
-    ConfigFile (const std::string& configFile);
-    ConfigFile (const char* configFile);
+    ConfigFile();
+    ConfigFile(const std::string& configFile);
+    ConfigFile(const char* configFile);
 
     bool
-    read (const std::string& configFile);
+    read(const std::string& configFile);
     bool
-    read (const char* configFile);
+    read(const char* configFile);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry) const;
+    value(const std::string& section, const std::string& entry) const;
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry, double def);
+    value(const std::string& section, const std::string& entry, double def);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry,
-           const char* def);
+    value(const std::string& section, const std::string& entry,
+          const char* def);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry, bool def);
+    value(const std::string& section, const std::string& entry, bool def);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry, int def);
+    value(const std::string& section, const std::string& entry, int def);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry,
-           unsigned int def);
+    value(const std::string& section, const std::string& entry,
+          unsigned int def);
 
     const AutoVal&
-    value (const std::string& section, const std::string& entry,
-           const std::string& def);
+    value(const std::string& section, const std::string& entry,
+          const std::string& def);
 
     void
-    dumpValues (std::ostream& out);
+    dumpValues(std::ostream& out);
 
   protected:
     std::string
-    trim (const std::string& source, char const* delims = " \t\r\n") const;
+    trim(const std::string& source, char const* delims = " \t\r\n") const;
     std::string
-    truncate (const std::string& source, const char* atChar) const;
+    truncate(const std::string& source, const char* atChar) const;
     std::string
-    toLower (const std::string& source) const;
+    toLower(const std::string& source) const;
     void
-    insertValue (const std::string& section, const std::string& entry,
-                 const std::string& thevalue);
+    insertValue(const std::string& section, const std::string& entry,
+                const std::string& thevalue);
   };
 
 }

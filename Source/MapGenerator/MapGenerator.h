@@ -13,26 +13,26 @@
 
 namespace NS_NaviCommon
 {
-  
+
   class MapGenerator
   {
   public:
     static bool
-    saveMapInPGM (std::vector<char> map_data, int height, int width,
-                  std::string pgm_file);
+    saveMapInPGM(std::vector< char > map_data, int height, int width,
+                 std::string pgm_file);
     static bool
-    readMapFromPGM (std::string pgm_file, std::vector<char>& map_data,
-                    int& height, int& width);
+    readMapFromPGM(std::string pgm_file, std::vector< char >& map_data,
+                   int& height, int& width);
 
     static bool
-    addRobotPoseInMap (std::vector<char>& map_data, int map_height,
-                       int map_width, int robot_pose_x, int robot_pose_y);
+    addRobotPoseInMap(std::vector< char >& map_data, int map_height,
+                      int map_width, int robot_pose_x, int robot_pose_y);
 
   private:
     static bool
-    lock (int fd);
+    lock(int fd);
     static bool
-    unlock (int fd);
+    unlock(int fd);
   };
 
 } /* namespace NS_NaviCommon */

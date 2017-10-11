@@ -15,14 +15,13 @@ namespace NS_DataType
   class DataBase
   {
   public:
-    typedef boost::shared_ptr<DataBase> Ptr;
-    typedef boost::shared_ptr<DataBase const> ConstPtr;
-    DataBase ()
+    typedef boost::shared_ptr< DataBase > Ptr;
+    typedef boost::shared_ptr< DataBase const > ConstPtr;
+    DataBase()
     {
     }
     ;
-    virtual
-    ~DataBase ()
+    virtual ~DataBase()
     {
     }
     ;

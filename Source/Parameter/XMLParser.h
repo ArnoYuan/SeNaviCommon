@@ -129,7 +129,7 @@ typedef enum XMLError
   eXMLErrorCharConversionError,
   eXMLErrorCannotOpenWriteFile,
   eXMLErrorCannotWriteFile,
-  
+
   eXMLErrorBase64DataSizeIsNotMultipleOf4,
   eXMLErrorBase64DecodeIllegalCharacter,
   eXMLErrorBase64DecodeTruncatedData,
@@ -176,7 +176,7 @@ struct XMLNodeContents;
 typedef struct DLLENTRY XMLNode
 {
 private:
-  
+
   struct XMLNodeDataTag;
 
   // protected constructors: use one of these four methods to get your first instance of XMLNode:
@@ -184,12 +184,12 @@ private:
   //  - parseFile
   //  - openFileHelper
   //  - createXMLTopNode
-  
+
 public:
-  
+
   // You can create your first instance of XMLNode with these 4 functions:
   // (see complete explanation of parameters below)
-  XMLNode (struct XMLNodeDataTag *pParent, XMLCSTR lpszName, char isDeclaration);
+  XMLNode(struct XMLNodeDataTag *pParent, XMLCSTR lpszName, char isDeclaration);
   XMLNode(struct XMLNodeDataTag *p);
 
   static XMLNode createXMLTopNode(XMLCSTR lpszName, char isDeclaration=FALSE);
@@ -200,13 +200,13 @@ public:
   // The tag parameter should be the name of the first tag inside the XML file.
   // If the tag parameter is omitted, the 3 functions return a node that represents
   // the head of the xml document including the declaration term (<? ... ?>).
-  
+
   // The "openFileHelper" reports to the screen all the warnings & errors that occurred during
   // parsing of the XML file. Since each application has its own way to report and deal with errors,
   // you should rather use the "parseFile" function to parse XML files and program yourself thereafter
   // an "error reporting" tailored for your needs (instead of using the very crude "error reporting"
   // mechanism included inside the "openFileHelper" function).
-  
+
   // If the XML document is corrupted:
   //   * The "openFileHelper" method will:
   //         - display an error message on the console (or inside a messageBox for windows).
@@ -229,44 +229,44 @@ public:
   XMLNode getChildNode(XMLCSTR name, int i) const;// return ith child node with specific name
                                                   //     (return an empty node if failing)
   XMLNode getChildNode(XMLCSTR name, int *i=NULL) const;// return next child node with specific name
-                                                  //     (return an empty node if failing)
+  //     (return an empty node if failing)
   XMLNode getChildNodeWithAttribute(XMLCSTR tagName,// return child node with specific name/attribute
-  XMLCSTR attributeName,                          //     (return an empty node if failing)
-  XMLCSTR attributeValue=NULL,                    //
-  int *i=NULL) const;                             //
-  int nChildNode(XMLCSTR name) const;             // return the number of child node with specific name
-  int nChildNode() const;                         // nbr of child node
-  XMLAttribute getAttribute(int i=0) const;       // return ith attribute
-  XMLCSTR getAttributeName(int i=0) const;        // return ith attribute name
-  XMLCSTR getAttributeValue(int i=0) const;       // return ith attribute value
-  char isAttributeSet(XMLCSTR name) const;        // test if an attribute with a specific name is given
+  XMLCSTR attributeName,//     (return an empty node if failing)
+  XMLCSTR attributeValue=NULL,//
+  int *i=NULL) const;//
+  int nChildNode(XMLCSTR name) const;// return the number of child node with specific name
+  int nChildNode() const;// nbr of child node
+  XMLAttribute getAttribute(int i=0) const;// return ith attribute
+  XMLCSTR getAttributeName(int i=0) const;// return ith attribute name
+  XMLCSTR getAttributeValue(int i=0) const;// return ith attribute value
+  char isAttributeSet(XMLCSTR name) const;// test if an attribute with a specific name is given
   XMLCSTR getAttribute(XMLCSTR name, int i) const;// return ith attribute content with specific name
                                                   //     (return a NULL if failing)
   XMLCSTR getAttribute(XMLCSTR name, int *i=NULL) const;// return next attribute content with specific name
-                                                  //     (return a NULL if failing)
-  int nAttribute() const;                         // nbr of attribute
-  XMLClear getClear(int i=0) const;               // return ith clear field (comments)
-  int nClear() const;                             // nbr of clear field
+  //     (return a NULL if failing)
+  int nAttribute() const;// nbr of attribute
+  XMLClear getClear(int i=0) const;// return ith clear field (comments)
+  int nClear() const;// nbr of clear field
   XMLSTR createXMLString(int nFormat=1, int *pnSize=NULL) const;// create XML string starting from current XMLNode
-                                                  // if nFormat==0, no formatting is required
-                                                  // otherwise this returns an user friendly XML string from a
-                                                  // given element with appropriate white spaces and carriage returns.
-                                                  // if pnSize is given it returns the size in character of the string.
+  // if nFormat==0, no formatting is required
+  // otherwise this returns an user friendly XML string from a
+  // given element with appropriate white spaces and carriage returns.
+  // if pnSize is given it returns the size in character of the string.
   XMLError writeToFile(XMLCSTR filename, const char *encoding=NULL, char nFormat=1) const;
-                                                  // save the content of an xmlNode inside a file.
-                                                  // the nFormat parameter has the same meaning as in the
-                                                  // createXMLString function. If "strictUTF8Parsing=1", the
-                                                  // the encoding parameter is ignored and always set to
-                                                  // "utf-8". If "_XMLUNICODE=1", the encoding parameter is
-                                                  // ignored and always set to "utf-16".
-  XMLNodeContents enumContents(int i) const;      // enumerate all the different contents (attribute,child,text,
-                                                  //     clear) of the current XMLNode. The order is reflecting
-                                                  //     the order of the original file/string.
-                                                  //     NOTE: 0 <= i < nElement();
-  int nElement() const;                           // nbr of different contents for current node
-  char isEmpty() const;                           // is this node Empty?
-  char isDeclaration() const;                     // is this node a declaration <? .... ?>
-  
+  // save the content of an xmlNode inside a file.
+  // the nFormat parameter has the same meaning as in the
+  // createXMLString function. If "strictUTF8Parsing=1", the
+  // the encoding parameter is ignored and always set to
+  // "utf-8". If "_XMLUNICODE=1", the encoding parameter is
+  // ignored and always set to "utf-16".
+  XMLNodeContents enumContents(int i) const;// enumerate all the different contents (attribute,child,text,
+                                            //     clear) of the current XMLNode. The order is reflecting
+                                            //     the order of the original file/string.
+                                            //     NOTE: 0 <= i < nElement();
+  int nElement() const;                     // nbr of different contents for current node
+  char isEmpty() const;                     // is this node Empty?
+  char isDeclaration() const;               // is this node a declaration <? .... ?>
+
 // to allow shallow/fast copy:
   ~XMLNode();
   XMLNode(const XMLNode &A);
@@ -302,7 +302,7 @@ public:
   XMLClear *updateClear(XMLCSTR lpszNewContent, int i=0);                                      // if the clearTag to update is missing, a new one will be added
   XMLClear *updateClear(XMLClear *newP,XMLClear *oldP);                                        // if the clearTag to update is missing, a new one will be added
   XMLClear *updateClear(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);                           // if the clearTag to update is missing, a new one will be added
-  
+
                                                                                                // Some deletion functions:
   void deleteNodeContent(char force=0);                                                        // delete the content of this XMLNode and the subtree.
                                                                                                // if force=0, while (references to this node still exist), no memory free occurs
@@ -334,7 +334,7 @@ public:
                                                                                                //    char *b=(char*)malloc(...);
                                                                                                //    xNode.addText_WOSD(b);
                                                                                                //    ('free(b)' is performed by the XMLNode class)
-  
+
   static XMLNode createXMLTopNode_WOSD(XMLCSTR lpszName, char isDeclaration=FALSE);
   XMLNode addChild_WOSD(XMLCSTR lpszName, char isDeclaration=FALSE, int pos=-1);
   XMLAttribute *addAttribute_WOSD(XMLCSTR lpszName, XMLCSTR lpszValue);
@@ -363,7 +363,7 @@ public:
   int positionOfChildNode(XMLNode x) const;
   int positionOfChildNode(XMLCSTR name, int i=0) const;                                        // return the position of the ith childNode with the specified name
                                                                                                // if (name==NULL) return the position of the ith childNode
-  
+
                                                                                                // The setGlobalOptions function allows you to change two global parameters that affect string&file
                                                                                                // parsing. First of all, you most-probably will never have to change these 2 global parameters.
                                                                                                // About the "guessUnicodeChars" parameter:
@@ -388,7 +388,7 @@ public:
                                                                                                //     depending on the content of the first byte of the character.
                                                                                                // About the "dropWhiteSpace" parameter:
                                                                                                //
-  
+
   static void setGlobalOptions(char guessUnicodeChars=1, char strictUTF8Parsing=1, char dropWhiteSpace=1);
 
                                                                                                // The next function try to guess if the character encoding is UTF-8. You most-probably will never
@@ -400,13 +400,13 @@ public:
                                                                                                // guess. One of the heuristic is based on the "encoding" attribute. The original XML specifications
                                                                                                // forbids to use this attribute to do the guess but you can still use it if you set
                                                                                                // "useXMLEncodingAttribute" to 1 (this is the default behavior and the behavior of most parsers).
-  
+
   static char guessUTF8ParsingParameterValue(void *buffer, int bufLen, char useXMLEncodingAttribute=1);
 
 // these are functions and structures used internally by the XMLNode class (don't bother about them):
-  
+
   typedef struct XMLNodeDataTag// to allow shallow copy and "intelligent/smart" pointers (automatic delete):
-  { 
+  {
     XMLCSTR lpszName;        // Element name (=NULL if root)
     int nChild,// Number of child nodes
     nText,// Number of text fields
@@ -456,8 +456,8 @@ typedef struct XMLNodeContents
 }XMLNodeContents;
 
 DLLENTRY void
-free_XMLDLL (void *t); // {free(t);}
-    
+free_XMLDLL(void *t); // {free(t);}
+
 // Duplicate (copy in a new allocated buffer) the source string. This is
 // a very handy function when used with all the "XMLNode::*_WOSD" functions.
 // (If (cbData!=0) then cbData is the number of chars to duplicate)
@@ -491,19 +491,19 @@ DLLENTRY XMLSTR toXMLString(XMLSTR dest,XMLCSTR source);
 class DLLENTRY XMLParserBase64Tool
 {
 public:
-  XMLParserBase64Tool ()
-      : buf (NULL), buflen (0)
+  XMLParserBase64Tool()
+      : buf(NULL), buflen(0)
   {
   }
-  ~XMLParserBase64Tool ();
+  ~XMLParserBase64Tool();
 
   void
-  freeBuffer ();
+  freeBuffer();
 
   // returns the length of the base64 string that encodes a data buffer of size inBufLen bytes.
   // If "formatted" parameter is true, some space will be reserved for a carriage-return every 72 chars.
   static int
-  encodeLength (int inBufLen, char formatted = 0);
+  encodeLength(int inBufLen, char formatted = 0);
 
   // The "base64Encode" function returns a string containing the base64 encoding of "inByteLen" bytes
   // from "inByteBuf". If "formatted" parameter is true, then there will be a carriage-return every 72 chars.
@@ -536,6 +536,6 @@ private:
 
 // Save node as root node to xml file. (Add by quanch)
 int
-saveXMLFile (const char* pXMLFileName, XMLNode xRootNode);
+saveXMLFile(const char* pXMLFileName, XMLNode xRootNode);
 
 #endif

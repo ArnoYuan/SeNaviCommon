@@ -8,38 +8,35 @@ namespace NS_Geometry
 {
   namespace NS_Angles
   {
-    
+
     /*!
      * \brief Convert degrees to radians
      */
 
-    static inline double
-    from_degrees (double degrees)
+    static inline double from_degrees(double degrees)
     {
       return degrees * M_PI / 180.0;
     }
-    
+
     /*!
      * \brief Convert radians to degrees
      */
-    static inline double
-    to_degrees (double radians)
+    static inline double to_degrees(double radians)
     {
       return radians * 180.0 / M_PI;
     }
-    
+
     /*!
      * \brief normalize_angle_positive
      *
      *        Normalizes the angle to be 0 to 2*M_PI
      *        It takes and returns radians.
      */
-    static inline double
-    normalize_angle_positive (double angle)
+    static inline double normalize_angle_positive(double angle)
     {
-      return fmod (fmod (angle, 2.0 * M_PI) + 2.0 * M_PI, 2.0 * M_PI);
+      return fmod(fmod(angle, 2.0 * M_PI) + 2.0 * M_PI, 2.0 * M_PI);
     }
-    
+
     /*!
      * \brief normalize
      *
@@ -47,15 +44,14 @@ namespace NS_Geometry
      * It takes and returns radians.
      *
      */
-    static inline double
-    normalize_angle (double angle)
+    static inline double normalize_angle(double angle)
     {
-      double a = normalize_angle_positive (angle);
-      if (a > M_PI)
+      double a = normalize_angle_positive(angle);
+      if(a > M_PI)
         a -= 2.0 * M_PI;
       return a;
     }
-    
+
     /*!
      * \function
      * \brief shortest_angular_distance
@@ -68,12 +64,11 @@ namespace NS_Geometry
      * to "from" will always get you an equivelent angle to "to".
      */
 
-    static inline double
-    shortest_angular_distance (double from, double to)
+    static inline double shortest_angular_distance(double from, double to)
     {
-      return normalize_angle (to - from);
+      return normalize_angle(to - from);
     }
-    
+
     /*!
      * \function
      *
@@ -83,20 +78,19 @@ namespace NS_Geometry
      * two_pi_complement(M_PI/4) returns -7*M_PI/4
      *
      */
-    static inline double
-    two_pi_complement (double angle)
+    static inline double two_pi_complement(double angle)
     {
       //check input conditions
-      if (angle > 2 * M_PI || angle < -2.0 * M_PI)
-        angle = fmod (angle, 2.0 * M_PI);
-      if (angle < 0)
+      if(angle > 2 * M_PI || angle < -2.0 * M_PI)
+        angle = fmod(angle, 2.0 * M_PI);
+      if(angle < 0)
         return (2 * M_PI + angle);
-      else if (angle > 0)
+      else if(angle > 0)
         return (-2 * M_PI + angle);
-      
+
       return (2 * M_PI);
     }
-    
+
     /*!
      * \function
      *
@@ -108,62 +102,63 @@ namespace NS_Geometry
      * \param result_min_delta - minimum (delta) angle (in radians) that can be moved from "from" position before hitting the joint stop
      * \param result_max_delta - maximum (delta) angle (in radians) that can be movedd from "from" position before hitting the joint stop
      */
-    static bool
-    find_min_max_delta (double from, double left_limit, double right_limit,
-                        double &result_min_delta, double &result_max_delta)
+    static bool find_min_max_delta(double from, double left_limit,
+                                   double right_limit, double &result_min_delta,
+                                   double &result_max_delta)
     {
       double delta[4];
-      
-      delta[0] = shortest_angular_distance (from, left_limit);
-      delta[1] = shortest_angular_distance (from, right_limit);
-      
-      delta[2] = two_pi_complement (delta[0]);
-      delta[3] = two_pi_complement (delta[1]);
-      
-      if (delta[0] == 0)
+
+      delta[0] = shortest_angular_distance(from, left_limit);
+      delta[1] = shortest_angular_distance(from, right_limit);
+
+      delta[2] = two_pi_complement(delta[0]);
+      delta[3] = two_pi_complement(delta[1]);
+
+      if(delta[0] == 0)
       {
         result_min_delta = delta[0];
-        result_max_delta = std::max<double> (delta[1], delta[3]);
+        result_max_delta = std::max< double >(delta[1], delta[3]);
         return true;
       }
-      
-      if (delta[1] == 0)
+
+      if(delta[1] == 0)
       {
         result_max_delta = delta[1];
-        result_min_delta = std::min<double> (delta[0], delta[2]);
+        result_min_delta = std::min< double >(delta[0], delta[2]);
         return true;
       }
-      
+
       double delta_min = delta[0];
       double delta_min_2pi = delta[2];
-      if (delta[2] < delta_min)
+      if(delta[2] < delta_min)
       {
         delta_min = delta[2];
         delta_min_2pi = delta[0];
       }
-      
+
       double delta_max = delta[1];
       double delta_max_2pi = delta[3];
-      if (delta[3] > delta_max)
+      if(delta[3] > delta_max)
       {
         delta_max = delta[3];
         delta_max_2pi = delta[1];
       }
-      
+
       //    printf("%f %f %f %f\n",delta_min,delta_min_2pi,delta_max,delta_max_2pi);
-      if ((delta_min <= delta_max_2pi) || (delta_max >= delta_min_2pi))
+      if((delta_min <= delta_max_2pi) || (delta_max >= delta_min_2pi))
       {
         result_min_delta = delta_max_2pi;
         result_max_delta = delta_min_2pi;
-        if (left_limit == -M_PI && right_limit == M_PI)
+        if(left_limit == -M_PI && right_limit == M_PI)
           return true;
-        else return false;
+        else
+          return false;
       }
       result_min_delta = delta_min;
       result_max_delta = delta_max;
       return true;
     }
-    
+
     /*!
      * \function
      *
@@ -181,73 +176,73 @@ namespace NS_Geometry
      * \param right_limit - right limit of valid interval for angular position, left and right limits are specified on the unit circle w.r.t to a reference pointing inwards
      * \param shortest_angle - result of the shortest angle calculation
      */
-    static inline bool
-    shortest_angular_distance_with_limits (double from, double to,
-                                           double left_limit,
-                                           double right_limit,
-                                           double &shortest_angle)
+    static inline bool shortest_angular_distance_with_limits(
+        double from, double to, double left_limit, double right_limit,
+        double &shortest_angle)
     {
-      
+
       double min_delta = -2 * M_PI;
       double max_delta = 2 * M_PI;
       double min_delta_to = -2 * M_PI;
       double max_delta_to = 2 * M_PI;
-      bool flag = find_min_max_delta (from, left_limit, right_limit, min_delta,
-                                      max_delta);
-      double delta = shortest_angular_distance (from, to);
-      double delta_mod_2pi = two_pi_complement (delta);
-      
-      if (flag) //from position is within the limits
+      bool flag = find_min_max_delta(from, left_limit, right_limit, min_delta,
+                                     max_delta);
+      double delta = shortest_angular_distance(from, to);
+      double delta_mod_2pi = two_pi_complement(delta);
+
+      if(flag) //from position is within the limits
       {
-        if (delta >= min_delta && delta <= max_delta)
+        if(delta >= min_delta && delta <= max_delta)
         {
           shortest_angle = delta;
           return true;
         }
-        else if (delta_mod_2pi >= min_delta && delta_mod_2pi <= max_delta)
+        else if(delta_mod_2pi >= min_delta && delta_mod_2pi <= max_delta)
         {
           shortest_angle = delta_mod_2pi;
           return true;
         }
         else //to position is outside the limits
         {
-          find_min_max_delta (to, left_limit, right_limit, min_delta_to,
-                              max_delta_to);
-          if (fabs (min_delta_to) < fabs (max_delta_to))
-            shortest_angle = std::max<double> (delta, delta_mod_2pi);
-          else if (fabs (min_delta_to) > fabs (max_delta_to))
-            shortest_angle = std::min<double> (delta, delta_mod_2pi);
+          find_min_max_delta(to, left_limit, right_limit, min_delta_to,
+                             max_delta_to);
+          if(fabs(min_delta_to) < fabs(max_delta_to))
+            shortest_angle = std::max< double >(delta, delta_mod_2pi);
+          else if(fabs(min_delta_to) > fabs(max_delta_to))
+            shortest_angle = std::min< double >(delta, delta_mod_2pi);
           else
           {
-            if (fabs (delta) < fabs (delta_mod_2pi))
+            if(fabs(delta) < fabs(delta_mod_2pi))
               shortest_angle = delta;
-            else shortest_angle = delta_mod_2pi;
+            else
+              shortest_angle = delta_mod_2pi;
           }
           return false;
         }
       }
       else // from position is outside the limits
       {
-        find_min_max_delta (to, left_limit, right_limit, min_delta_to,
-                            max_delta_to);
-        
-        if (fabs (min_delta) < fabs (max_delta))
-          shortest_angle = std::min<double> (delta, delta_mod_2pi);
-        else if (fabs (min_delta) > fabs (max_delta))
-          shortest_angle = std::max<double> (delta, delta_mod_2pi);
+        find_min_max_delta(to, left_limit, right_limit, min_delta_to,
+                           max_delta_to);
+
+        if(fabs(min_delta) < fabs(max_delta))
+          shortest_angle = std::min< double >(delta, delta_mod_2pi);
+        else if(fabs(min_delta) > fabs(max_delta))
+          shortest_angle = std::max< double >(delta, delta_mod_2pi);
         else
         {
-          if (fabs (delta) < fabs (delta_mod_2pi))
+          if(fabs(delta) < fabs(delta_mod_2pi))
             shortest_angle = delta;
-          else shortest_angle = delta_mod_2pi;
+          else
+            shortest_angle = delta_mod_2pi;
         }
         return false;
       }
-      
+
       shortest_angle = delta;
       return false;
     }
-  
+
   }
 }
 

@@ -13,12 +13,11 @@ namespace NS_GoalType
   class GoalBase
   {
   public:
-    GoalBase ()
+    GoalBase()
     {
     }
-    
-    virtual
-    ~GoalBase ()
+
+    virtual ~GoalBase()
     {
     }
   };

@@ -4,74 +4,69 @@
 
 namespace NS_NaviCommon
 {
-  
-  Timer::Impl::Impl ()
-      : started_ (false), timer_handle_ (-1)
+
+  Timer::Impl::Impl()
+      : started_(false), timer_handle_(-1)
   {
   }
-  
-  Timer::Impl::~Impl ()
+
+  Timer::Impl::~Impl()
   {
-    stop ();
+    stop();
   }
-  
-  bool
-  Timer::Impl::isValid ()
+
+  bool Timer::Impl::isValid()
   {
-    return !period_.isZero ();
+    return !period_.isZero();
   }
-  
-  void
-  Timer::Impl::start ()
+
+  void Timer::Impl::start()
   {
-    if (!started_)
+    if(!started_)
     {
       VoidConstPtr tracked_object;
-      if (has_tracked_object_)
+      if(has_tracked_object_)
       {
-        tracked_object = tracked_object_.lock ();
+        tracked_object = tracked_object_.lock();
       }
-      
-      timer_handle_ = TimerManager<Time, Duration, TimerEvent>::global ().add (
+
+      timer_handle_ = TimerManager< Time, Duration, TimerEvent >::global().add(
           period_, callback_, callback_queue_, tracked_object, oneshot_);
       started_ = true;
     }
   }
-  
-  void
-  Timer::Impl::stop ()
+
+  void Timer::Impl::stop()
   {
-    if (started_)
+    if(started_)
     {
       started_ = false;
-      TimerManager<Time, Duration, TimerEvent>::global ().remove (
+      TimerManager< Time, Duration, TimerEvent >::global().remove(
           timer_handle_);
       timer_handle_ = -1;
     }
   }
-  
-  bool
-  Timer::Impl::hasPending ()
+
+  bool Timer::Impl::hasPending()
   {
-    if (!isValid () || timer_handle_ == -1)
+    if(!isValid() || timer_handle_ == -1)
     {
       return false;
     }
-    
-    return TimerManager<Time, Duration, TimerEvent>::global ().hasPending (
+
+    return TimerManager< Time, Duration, TimerEvent >::global().hasPending(
         timer_handle_);
   }
-  
-  void
-  Timer::Impl::setPeriod (const Duration& period, bool reset)
+
+  void Timer::Impl::setPeriod(const Duration& period, bool reset)
   {
     period_ = period;
-    TimerManager<Time, Duration, TimerEvent>::global ().setPeriod (
+    TimerManager< Time, Duration, TimerEvent >::global().setPeriod(
         timer_handle_, period, reset);
   }
-  
-  Timer::Timer (const TimerOptions& ops)
-      : impl_ (new Impl)
+
+  Timer::Timer(const TimerOptions& ops)
+      : impl_(new Impl)
   {
     impl_->period_ = ops.period;
     impl_->callback_ = ops.callback;
@@ -80,51 +75,47 @@ namespace NS_NaviCommon
     impl_->has_tracked_object_ = (ops.tracked_object != NULL);
     impl_->oneshot_ = ops.oneshot;
   }
-  
-  Timer::Timer (const Timer& rhs)
+
+  Timer::Timer(const Timer& rhs)
   {
     impl_ = rhs.impl_;
   }
-  
-  Timer::~Timer ()
+
+  Timer::~Timer()
   {
   }
-  
-  void
-  Timer::start ()
+
+  void Timer::start()
   {
-    if (impl_)
+    if(impl_)
     {
-      impl_->start ();
+      impl_->start();
     }
   }
-  
-  void
-  Timer::stop ()
+
+  void Timer::stop()
   {
-    if (impl_)
+    if(impl_)
     {
-      impl_->stop ();
+      impl_->stop();
     }
   }
-  
-  bool
-  Timer::hasPending ()
+
+  bool Timer::hasPending()
   {
-    if (impl_)
+    if(impl_)
     {
-      return impl_->hasPending ();
+      return impl_->hasPending();
     }
-    
+
     return false;
   }
-  
-  void
-  Timer::setPeriod (const Duration& period, bool reset)
+
+  void Timer::setPeriod(const Duration& period, bool reset)
   {
-    if (impl_)
+    if(impl_)
     {
-      impl_->setPeriod (period, reset);
+      impl_->setPeriod(period, reset);
     }
   }
 

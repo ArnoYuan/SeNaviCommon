@@ -16,154 +16,154 @@
 
 namespace NS_DataType
 {
-  
-  template<class ContainerAllocator>
-    //struct Odometry_: public DataBase
-    struct Odometry_
+
+  template< class ContainerAllocator >
+  //struct Odometry_: public DataBase
+  struct Odometry_
+  {
+    typedef Odometry_< ContainerAllocator > Type;
+  public:
+    Odometry_()
+        : header(), child_frame_id(), pose(), twist()
     {
-      typedef Odometry_<ContainerAllocator> Type;
-    public:
-      Odometry_ ()
-          : header (), child_frame_id (), pose (), twist ()
-      {
-      }
-      ;
+    }
+    ;
 
-      Odometry_ (const ContainerAllocator& allocator)
-          : header (allocator), child_frame_id (allocator), pose (allocator),
-              twist (allocator)
-      {
-      }
-      ;
+    Odometry_(const ContainerAllocator& allocator)
+        : header(allocator), child_frame_id(allocator), pose(allocator),
+          twist(allocator)
+    {
+    }
+    ;
 
-      DataHeader_<ContainerAllocator> header;
+    DataHeader_< ContainerAllocator > header;
 
-      typedef std::basic_string<char, std::char_traits<char>,
-          typename ContainerAllocator::template rebind<char>::other> _child_frame_id_type;
-      _child_frame_id_type child_frame_id;
+    typedef std::basic_string< char, std::char_traits< char >,
+        typename ContainerAllocator::template rebind< char >::other > _child_frame_id_type;
+    _child_frame_id_type child_frame_id;
 
-      Pose_<ContainerAllocator> pose;
-      Twist_<ContainerAllocator> twist;
+    Pose_< ContainerAllocator > pose;
+    Twist_< ContainerAllocator > twist;
 
-      typedef boost::shared_ptr<Odometry_<ContainerAllocator> > Ptr;
-      typedef boost::shared_ptr<Odometry_<ContainerAllocator> const> ConstPtr;
-      /*
-       public:
-       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
-       {
-       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-       NS_NaviCommon::serialize(stream, header);
-       NS_NaviCommon::serialize(stream, pose);
-       NS_NaviCommon::serialize(stream, twist);
-       return stream.getData();
-       }
+    typedef boost::shared_ptr< Odometry_< ContainerAllocator > > Ptr;
+    typedef boost::shared_ptr< Odometry_< ContainerAllocator > const > ConstPtr;
+    /*
+     public:
+     virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+     {
+     NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+     NS_NaviCommon::serialize(stream, header);
+     NS_NaviCommon::serialize(stream, pose);
+     NS_NaviCommon::serialize(stream, twist);
+     return stream.getData();
+     }
 
-       virtual uint8_t *deserialize(uint8_t *read_ptr)
-       {
-       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-       NS_NaviCommon::deserialize(stream, header);
-       NS_NaviCommon::deserialize(stream, pose);
-       NS_NaviCommon::deserialize(stream, twist);
-       return stream.getData();
-       }
+     virtual uint8_t *deserialize(uint8_t *read_ptr)
+     {
+     NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+     NS_NaviCommon::deserialize(stream, header);
+     NS_NaviCommon::deserialize(stream, pose);
+     NS_NaviCommon::deserialize(stream, twist);
+     return stream.getData();
+     }
 
-       virtual uint32_t serializationLength() const
-       {
-       uint32_t size = 0;
-       size += NS_NaviCommon::serializationLength(header);
-       size += NS_NaviCommon::serializationLength(pose);
-       size += NS_NaviCommon::serializationLength(twist);
-       return size;
-       }
-       */
-    };
-  
-  typedef Odometry_<std::allocator<void> > Odometry;
-  
-  typedef boost::shared_ptr<Odometry> OdometryPtr;
-  typedef boost::shared_ptr<Odometry const> OdometryConstPtr;
+     virtual uint32_t serializationLength() const
+     {
+     uint32_t size = 0;
+     size += NS_NaviCommon::serializationLength(header);
+     size += NS_NaviCommon::serializationLength(pose);
+     size += NS_NaviCommon::serializationLength(twist);
+     return size;
+     }
+     */
+  };
+
+  typedef Odometry_< std::allocator< void > > Odometry;
+
+  typedef boost::shared_ptr< Odometry > OdometryPtr;
+  typedef boost::shared_ptr< Odometry const > OdometryConstPtr;
 
 }
 
 namespace NS_NaviCommon
 {
-  
+
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
 // {'nav_msgs': ['/tmp/binarydeb/ros-kinetic-nav-msgs-1.12.5/msg', '/tmp/binarydeb/ros-kinetic-nav-msgs-1.12.5/obj-x86_64-linux-gnu/devel/share/nav_msgs/msg'], 'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'actionlib_msgs': ['/opt/ros/kinetic/share/actionlib_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg']}
-  
+
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
-  
-  template<class ContainerAllocator>
-    struct IsFixedSize<NS_DataType::Odometry_<ContainerAllocator> > : FalseType
+
+  template< class ContainerAllocator >
+  struct IsFixedSize< NS_DataType::Odometry_< ContainerAllocator > > : FalseType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct IsFixedSize< NS_DataType::Odometry_< ContainerAllocator > const > : FalseType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct IsMessage< NS_DataType::Odometry_< ContainerAllocator > > : TrueType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct IsMessage< NS_DataType::Odometry_< ContainerAllocator > const > : TrueType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct HasHeader< NS_DataType::Odometry_< ContainerAllocator > > : TrueType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct HasHeader< NS_DataType::Odometry_< ContainerAllocator > const > : TrueType
+  {
+  };
+
+  template< class ContainerAllocator >
+  struct MD5Sum< NS_DataType::Odometry_< ContainerAllocator > >
+  {
+    static const char*
+    value()
     {
-    };
-  
-  template<class ContainerAllocator>
-    struct IsFixedSize<NS_DataType::Odometry_<ContainerAllocator> const> : FalseType
+      return "cd5e73d190d741a2f92e81eda573aca7";
+    }
+
+    static const char*
+    value(const NS_DataType::Odometry_< ContainerAllocator >&)
     {
-    };
-  
-  template<class ContainerAllocator>
-    struct IsMessage<NS_DataType::Odometry_<ContainerAllocator> > : TrueType
+      return value();
+    }
+    static const uint64_t static_value1 = 0xcd5e73d190d741a2ULL;
+    static const uint64_t static_value2 = 0xf92e81eda573aca7ULL;
+  };
+
+  template< class ContainerAllocator >
+  struct DataType< NS_DataType::Odometry_< ContainerAllocator > >
+  {
+    static const char*
+    value()
     {
-    };
-  
-  template<class ContainerAllocator>
-    struct IsMessage<NS_DataType::Odometry_<ContainerAllocator> const> : TrueType
+      return "nav_msgs/Odometry";
+    }
+
+    static const char*
+    value(const NS_DataType::Odometry_< ContainerAllocator >&)
     {
-    };
-  
-  template<class ContainerAllocator>
-    struct HasHeader<NS_DataType::Odometry_<ContainerAllocator> > : TrueType
+      return value();
+    }
+  };
+
+  template< class ContainerAllocator >
+  struct Definition< NS_DataType::Odometry_< ContainerAllocator > >
+  {
+    static const char*
+    value()
     {
-    };
-  
-  template<class ContainerAllocator>
-    struct HasHeader<NS_DataType::Odometry_<ContainerAllocator> const> : TrueType
-    {
-    };
-  
-  template<class ContainerAllocator>
-    struct MD5Sum<NS_DataType::Odometry_<ContainerAllocator> >
-    {
-      static const char*
-      value ()
-      {
-        return "cd5e73d190d741a2f92e81eda573aca7";
-      }
-      
-      static const char*
-      value (const NS_DataType::Odometry_<ContainerAllocator>&)
-      {
-        return value ();
-      }
-      static const uint64_t static_value1 = 0xcd5e73d190d741a2ULL;
-      static const uint64_t static_value2 = 0xf92e81eda573aca7ULL;
-    };
-  
-  template<class ContainerAllocator>
-    struct DataType<NS_DataType::Odometry_<ContainerAllocator> >
-    {
-      static const char*
-      value ()
-      {
-        return "nav_msgs/Odometry";
-      }
-      
-      static const char*
-      value (const NS_DataType::Odometry_<ContainerAllocator>&)
-      {
-        return value ();
-      }
-    };
-  
-  template<class ContainerAllocator>
-    struct Definition<NS_DataType::Odometry_<ContainerAllocator> >
-    {
-      static const char*
-      value ()
-      {
-        return "# This represents an estimate of a position and velocity in free space.  \n\
+      return "# This represents an estimate of a position and velocity in free space.  \n\
 # The pose in this message should be specified in the coordinate frame given by header.frame_id.\n\
 # The twist in this message should be specified in the coordinate frame given by the child_frame_id\n\
 Header header\n\
@@ -254,36 +254,35 @@ float64 x\n\
 float64 y\n\
 float64 z\n\
 ";
-      }
-      
-      static const char*
-      value (const NS_DataType::Odometry_<ContainerAllocator>&)
-      {
-        return value ();
-      }
-    };
+    }
+
+    static const char*
+    value(const NS_DataType::Odometry_< ContainerAllocator >&)
+    {
+      return value();
+    }
+  };
 
 } // namespace message_traits
 
 namespace NS_NaviCommon
 {
-  
-  template<class ContainerAllocator>
-    struct Serializer<NS_DataType::Odometry_<ContainerAllocator> >
+
+  template< class ContainerAllocator >
+  struct Serializer< NS_DataType::Odometry_< ContainerAllocator > >
+  {
+    template< typename Stream, typename T >
+    inline static void allInOne(Stream& stream, T m)
     {
-      template<typename Stream, typename T>
-        inline static void
-        allInOne (Stream& stream, T m)
-        {
-          stream.next (m.header);
-          stream.next (m.child_frame_id);
-          stream.next (m.pose);
-          stream.next (m.twist);
-        }
-      
-      DECLARE_ALLINONE_SERIALIZER}; // struct Odometry_
-    
-  }
-  // namespace serialization
-  
+      stream.next(m.header);
+      stream.next(m.child_frame_id);
+      stream.next(m.pose);
+      stream.next(m.twist);
+    }
+
+    DECLARE_ALLINONE_SERIALIZER}; // struct Odometry_
+
+}
+// namespace serialization
+
 #endif /* DATASET_DATATYPE_ODOMETRY_H_ */

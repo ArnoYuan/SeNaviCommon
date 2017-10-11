@@ -15,12 +15,12 @@ namespace NS_NaviCommon
   class Issuer
   {
   public:
-    Issuer ();
+    Issuer();
     virtual
-    ~Issuer ();
+    ~Issuer();
   public:
     bool
-    publish ();
+    publish();
   };
 
 }

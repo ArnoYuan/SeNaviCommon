@@ -9,7 +9,7 @@
 
 namespace NS_NaviCommon
 {
-  
+
   /**
    * \brief Generally not for outside use.  Adapts a function parameter type into the message type, event type and parameter.  Allows you to
    * retrieve a parameter type from an event type.
@@ -36,133 +36,125 @@ namespace NS_NaviCommon
    void callback(const MessageEvent<M>&);
    \endverbatim
    */
-  template<typename M>
-    struct ParameterAdapter
-    {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef M Parameter;
-      static const bool is_const = true;
+  template< typename M >
+  struct ParameterAdapter
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef M Parameter;
+    static const bool is_const = true;
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return *event.getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<const boost::shared_ptr<M const>&>
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef const boost::shared_ptr<Message const> Parameter;
-      static const bool is_const = true;
+      return *event.getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return event.getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<const boost::shared_ptr<M>&>
+  template< typename M >
+  struct ParameterAdapter< const boost::shared_ptr< M const >& >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef const boost::shared_ptr< Message const > Parameter;
+    static const bool is_const = true;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef boost::shared_ptr<Message> Parameter;
-      static const bool is_const = false;
+      return event.getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return MessageEvent<Message> (event).getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<const M&>
+  template< typename M >
+  struct ParameterAdapter< const boost::shared_ptr< M >& >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef boost::shared_ptr< Message > Parameter;
+    static const bool is_const = false;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef const M& Parameter;
-      static const bool is_const = true;
+      return MessageEvent< Message >(event).getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return *event.getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<boost::shared_ptr<M const> >
+  template< typename M >
+  struct ParameterAdapter< const M& >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef const M& Parameter;
+    static const bool is_const = true;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef boost::shared_ptr<Message const> Parameter;
-      static const bool is_const = true;
+      return *event.getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return event.getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<boost::shared_ptr<M> >
+  template< typename M >
+  struct ParameterAdapter< boost::shared_ptr< M const > >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef boost::shared_ptr< Message const > Parameter;
+    static const bool is_const = true;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef boost::shared_ptr<Message> Parameter;
-      static const bool is_const = false;
+      return event.getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return MessageEvent<Message> (event).getMessage ();
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<const MessageEvent<M const>&>
+  template< typename M >
+  struct ParameterAdapter< boost::shared_ptr< M > >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef boost::shared_ptr< Message > Parameter;
+    static const bool is_const = false;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef const MessageEvent<Message const>& Parameter;
-      static const bool is_const = true;
+      return MessageEvent< Message >(event).getMessage();
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return event;
-      }
-    };
-  
-  template<typename M>
-    struct ParameterAdapter<const MessageEvent<M>&>
+  template< typename M >
+  struct ParameterAdapter< const MessageEvent< M const >& >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef const MessageEvent< Message const >& Parameter;
+    static const bool is_const = true;
+
+    static Parameter getParameter(const Event& event)
     {
-      typedef typename boost::remove_reference<
-          typename boost::remove_const<M>::type>::type Message;
-      typedef MessageEvent<Message const> Event;
-      typedef MessageEvent<Message> Parameter;
-      static const bool is_const = false;
+      return event;
+    }
+  };
 
-      static Parameter
-      getParameter (const Event& event)
-      {
-        return MessageEvent<Message> (event);
-      }
-    };
+  template< typename M >
+  struct ParameterAdapter< const MessageEvent< M >& >
+  {
+    typedef typename boost::remove_reference<
+        typename boost::remove_const< M >::type >::type Message;
+    typedef MessageEvent< Message const > Event;
+    typedef MessageEvent< Message > Parameter;
+    static const bool is_const = false;
+
+    static Parameter getParameter(const Event& event)
+    {
+      return MessageEvent< Message >(event);
+    }
+  };
 
 }
 

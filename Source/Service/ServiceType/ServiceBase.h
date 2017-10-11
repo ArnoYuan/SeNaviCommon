@@ -10,16 +10,15 @@
 
 namespace NS_ServiceType
 {
-  
+
   class ServiceBase
   {
   public:
-    ServiceBase ()
+    ServiceBase()
     {
     }
     ;
-    virtual
-    ~ServiceBase ()
+    virtual ~ServiceBase()
     {
     }
     ;
@@ -27,11 +26,11 @@ namespace NS_ServiceType
     bool result;
 
     virtual uint32_t
-    serializationLength () const = 0;
+    serializationLength() const = 0;
     virtual uint8_t *
-    serialize (uint8_t *write_ptr, uint32_t seq) const = 0;
+    serialize(uint8_t *write_ptr, uint32_t seq) const = 0;
     virtual uint8_t *
-    deserialize (uint8_t *read_ptr) = 0;
+    deserialize(uint8_t *read_ptr) = 0;
   };
 
 } /* namespace NS_NaviCommon */

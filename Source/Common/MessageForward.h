@@ -11,8 +11,8 @@
 #ifndef _LIBCPP_VERSION
 namespace std
 {
-  template<typename T>
-    class allocator;
+  template< typename T >
+  class allocator;
 }
 #else
 #include <memory>
@@ -20,8 +20,8 @@ namespace std
 
 namespace boost
 {
-  template<typename T>
-    class shared_ptr;
+  template< typename T >
+  class shared_ptr;
 }
 
 /**

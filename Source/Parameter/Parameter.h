@@ -25,29 +25,29 @@ namespace NS_NaviCommon
 #define CONFIGURATION_PATH "/etc/SeNavigation/"
 #define CONFIGURATION_COMMON_NODE_NAME "configuration"
 #define CONFIGURATION_COMMON_ATTRIBUTE_NAME "value"
-  
+
   class Parameter
   {
   public:
-    Parameter ();
+    Parameter();
     virtual
-    ~Parameter ();
+    ~Parameter();
 
   private:
     XMLNode main_node;
   public:
     bool
-    loadConfigurationFile (const std::string file_name);
+    loadConfigurationFile(const std::string file_name);
 
     std::string
-    getParameter (const std::string node_name, const std::string default_value);
+    getParameter(const std::string node_name, const std::string default_value);
 
     int
-    getParameter (const std::string node_name, const int default_value);
+    getParameter(const std::string node_name, const int default_value);
 
     float
-    getParameter (const std::string node_name, const float default_value);
-    
+    getParameter(const std::string node_name, const float default_value);
+
   };
 
 } /* namespace NS_NaviCommon */

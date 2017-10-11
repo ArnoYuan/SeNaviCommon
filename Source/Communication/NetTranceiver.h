@@ -17,16 +17,17 @@ namespace NS_NaviCommon
 {
   enum
   {
-    NET_RX_TIMEOUT = -1, NET_RX_FAILURE = -2,
+    NET_RX_TIMEOUT = -1,
+    NET_RX_FAILURE = -2,
   };
-  
+
 #define NET_RX_WAIT 1
-  
+
   class NetTranceiver
   {
   public:
-    NetTranceiver (int local_port = 6688, int remote_port = 6689);
-    ~NetTranceiver ();
+    NetTranceiver(int local_port = 6688, int remote_port = 6689);
+    ~NetTranceiver();
   private:
     int handle;
 
@@ -40,13 +41,13 @@ namespace NS_NaviCommon
 
   public:
     bool
-    open ();
+    open();
     bool
-    close ();
+    close();
     int
-    receive (unsigned char* buffer, int length, int wait_seconds = NET_RX_WAIT);
+    receive(unsigned char* buffer, int length, int wait_seconds = NET_RX_WAIT);
     int
-    transmit (unsigned char* buffer, int length);
+    transmit(unsigned char* buffer, int length);
   };
 
 } /* namespace NS_NaviCommon */

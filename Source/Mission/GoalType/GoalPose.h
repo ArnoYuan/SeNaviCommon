@@ -13,34 +13,34 @@
 
 namespace NS_GoalType
 {
-  
-  template<class ContainerAllocator>
-    struct GoalPose_: public GoalBase
+
+  template< class ContainerAllocator >
+  struct GoalPose_: public GoalBase
+  {
+    typedef GoalPose_< ContainerAllocator > Type;
+  public:
+    GoalPose_()
+        : target()
     {
-      typedef GoalPose_<ContainerAllocator> Type;
-    public:
-      GoalPose_ ()
-          : target ()
-      {
-      }
-      ;
+    }
+    ;
 
-      GoalPose_ (const ContainerAllocator& allocator)
-          : target (allocator)
-      {
-      }
-      ;
+    GoalPose_(const ContainerAllocator& allocator)
+        : target(allocator)
+    {
+    }
+    ;
 
-      NS_DataType::PoseStamped_<ContainerAllocator> target;
+    NS_DataType::PoseStamped_< ContainerAllocator > target;
 
-      typedef boost::shared_ptr<GoalPose_<ContainerAllocator> > Ptr;
-      typedef boost::shared_ptr<GoalPose_<ContainerAllocator> const> ConstPtr;
-    };
-  
-  typedef GoalPose_<std::allocator<void> > GoalPose;
-  
-  typedef boost::shared_ptr<GoalPose> RequestMapPtr;
-  typedef boost::shared_ptr<GoalPose const> RequestMapConstPtr;
+    typedef boost::shared_ptr< GoalPose_< ContainerAllocator > > Ptr;
+    typedef boost::shared_ptr< GoalPose_< ContainerAllocator > const > ConstPtr;
+  };
+
+  typedef GoalPose_< std::allocator< void > > GoalPose;
+
+  typedef boost::shared_ptr< GoalPose > RequestMapPtr;
+  typedef boost::shared_ptr< GoalPose const > RequestMapConstPtr;
 
 }
 

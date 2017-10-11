@@ -12,14 +12,14 @@
 
 namespace NS_CommDataType
 {
-  
+
   enum
   {
     COMMUNICATION_DATA_TYPE_NULL = 0,
     COMMUNICATION_DATA_TYPE_REQUEST,
     COMMUNICATION_DATA_TYPE_RESPONSE,
   };
-  
+
   enum
   {
     COMMUNICATION_DATA_REASON_NULL = 0,
@@ -29,7 +29,7 @@ namespace NS_CommDataType
     COMMUNICATION_DATA_REASON_PATH,
     COMMUNICATION_DATA_REASON_MAP_META,
   };
-  
+
   struct CommData
   {
     unsigned char type;
