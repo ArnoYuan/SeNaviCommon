@@ -28,7 +28,7 @@ namespace NS_NaviCommon
   {
     if (tranceiver)
     {
-      tranceiver->close();
+      tranceiver->close ();
       delete tranceiver;
     }
   }
@@ -37,7 +37,7 @@ namespace NS_NaviCommon
   Communicator::timeoutProcess ()
   {
     NS_NaviCommon::Rate rate (5);
-
+    
     while (running)
     {
       time_t cur_time;
@@ -165,13 +165,13 @@ namespace NS_NaviCommon
     finishMessage (message);
     work_thread_count--;
   }
-
+  
   void
   Communicator::onReceive (CommData* message)
   {
     
   }
-
+  
   bool
   Communicator::initialize (int local_port, int remote_port)
   {

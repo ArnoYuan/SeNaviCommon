@@ -14,16 +14,12 @@ namespace NS_NaviCommon
   {
   public:
     Executor ();
-    virtual ~Executor ();
+    virtual
+    ~Executor ();
   public:
-
+    
   };
 
-
-
-
 }
-
-
 
 #endif /* MISSION_EXECUTOR_H_ */

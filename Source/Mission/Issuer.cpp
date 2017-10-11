@@ -5,6 +5,5 @@
  *      Author: root
  */
 
-
 #include "Issuer.h"
 

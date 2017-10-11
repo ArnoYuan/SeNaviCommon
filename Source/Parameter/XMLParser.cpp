@@ -113,7 +113,7 @@ mmin (const int t1, const int t2)
 static ALLXMLClearTag XMLClearTags[] = { { _T("<![CDATA["), 9, _T("]]>") }, {
     _T("<!DOCTYPE"), 9, _T(">") }, { _T("<PRE>"), 5, _T("</PRE>") }, { _T(
     "<Script>"), 8, _T("</Script>") }, { _T("<!--"), 4, _T("-->") }, { NULL, 0,
-    NULL } };
+NULL } };
 ALLXMLClearTag*
 XMLNode::getClearTagTable ()
 {
@@ -803,8 +803,8 @@ GetNextToken (XML *pXML, int *pcbToken, enum XMLTokenTypeTag *pType)
     indexStart = pXML->nIndex;
     ch = getNextChar (pXML);
   }
-  while(XML_isSPACECHAR(ch));
-
+  while (XML_isSPACECHAR(ch));
+  
   if (ch)
   {
     // Cache the current string pointer
@@ -936,24 +936,28 @@ GetNextToken (XML *pXML, int *pcbToken, enum XMLTokenTypeTag *pType)
       while ((ch = getNextChar (pXML)))
       {
         if (XML_isSPACECHAR(ch))
-        { 
+        {
           indexStart++;
           break;
-
+          
         }
-        else if (ch==_T('/'))
-        { 
+        else if (ch == _T('/'))
+        {
           // If we find a slash then this maybe text or a short hand end tag
           // Peek at the next character to see it we have short hand end tag
-          ch=pXML->lpXML[pXML->nIndex];
+          ch = pXML->lpXML[pXML->nIndex];
           // If we found a short hand end tag then we need to exit the loop
-          if (ch==_T('>'))
-          { pXML->nIndex--; break;}
-
+          if (ch == _T('>'))
+          {
+            pXML->nIndex--;
+            break;
+          }
+          
         }
-        else if ((ch==_T('<'))||(ch==_T('>'))||(ch==_T('=')))
-        { 
-          pXML->nIndex--; break;
+        else if ((ch == _T('<')) || (ch == _T('>')) || (ch == _T('=')))
+        {
+          pXML->nIndex--;
+          break;
         }
       }
     }
@@ -2850,15 +2854,18 @@ XMLNode::guessUTF8ParsingParameterValue (void *buf, int l,
   if (!b)
     return 1;
   b += 8;
-  while (XML_isSPACECHAR(*b)) b++;
+  while (XML_isSPACECHAR(*b))
+    b++;
   if (*b != '=')
     return 1;
   b++;
-  while (XML_isSPACECHAR(*b)) b++;
+  while (XML_isSPACECHAR(*b))
+    b++;
   if ((*b != '\'') && (*b != '"'))
     return 1;
   b++;
-  while (XML_isSPACECHAR(*b)) b++;
+  while (XML_isSPACECHAR(*b))
+    b++;
   if ((_strnicmp ((char*) b, "utf-8", 5) == 0)
       || (_strnicmp ((char*) b, "utf8", 4) == 0))
     return 1;

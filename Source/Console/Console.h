@@ -26,14 +26,20 @@ namespace NS_NaviCommon
 #define COLOR_GREEN "\033[1;32m"
 #define COLOR_YELLOW "\033[1;33m"
 #define COLOR_CYAN "\033[1;36m"
-
+  
 #define DEBUG_FLAG_FILE "/tmp/seeing-debug-flag"
-
+  
   class Console
   {
   public:
-    Console () {};
-    ~Console () {};
+    Console ()
+    {
+    }
+    ;
+    ~Console ()
+    {
+    }
+    ;
   private:
     bool use_vt100 = true;
   public:
@@ -52,7 +58,7 @@ namespace NS_NaviCommon
       if (use_vt100)
         printf (COLOR_NONE);
       printf ("\r\n");
-      fflush(stdout);
+      fflush (stdout);
     }
     ;
 
@@ -71,7 +77,7 @@ namespace NS_NaviCommon
       if (use_vt100)
         printf (COLOR_NONE);
       printf ("\r\n");
-      fflush(stdout);
+      fflush (stdout);
     }
     ;
 
@@ -90,7 +96,7 @@ namespace NS_NaviCommon
       if (use_vt100)
         printf (COLOR_NONE);
       printf ("\r\n");
-      fflush(stdout);
+      fflush (stdout);
     }
     ;
 
@@ -111,12 +117,13 @@ namespace NS_NaviCommon
         if (use_vt100)
           printf (COLOR_NONE);
         printf ("\r\n");
-        fflush(stdout);
+        fflush (stdout);
       }
     }
     ;
 
-    void debugOn ()
+    void
+    debugOn ()
     {
       char cmd[1024] = { 0 };
       strcat (cmd, "touch ");
@@ -125,7 +132,8 @@ namespace NS_NaviCommon
     }
     ;
 
-    void debugOff ()
+    void
+    debugOff ()
     {
       char cmd[1024] = { 0 };
       strcat (cmd, "rm -f ");
@@ -145,30 +153,32 @@ namespace NS_NaviCommon
         printf ("%02X ", *(ptr_ + i));
       }
       printf (" ]");
-
+      
       if (use_vt100)
         printf (COLOR_NONE);
-
+      
       printf ("\r\n");
-      fflush(stdout);
+      fflush (stdout);
     }
-
+    
     void
     redirect (std::string log_file)
     {
-      fflush(stdout);
+      fflush (stdout);
       mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
       int log_fd = open (log_file.c_str (), O_CREAT | O_RDWR | O_TRUNC, mode);
       dup2 (log_fd, STDOUT_FILENO);
-    };
+    }
+    ;
 
     void
     setVT100 (bool use)
     {
-      fflush(stdout);
+      fflush (stdout);
       use_vt100 = use;
-    };
-
+    }
+    ;
+    
   };
 
 }

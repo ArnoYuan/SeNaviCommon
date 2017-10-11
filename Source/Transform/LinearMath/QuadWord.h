@@ -1,4 +1,3 @@
-
 #ifndef _TRANSFORM_QUADWORD_H_
 #define _TRANSFORM_QUADWORD_H_
 

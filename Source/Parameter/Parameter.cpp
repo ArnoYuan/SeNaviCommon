@@ -36,7 +36,7 @@ namespace NS_NaviCommon
       return false;
     }
     main_node = XMLNode::openFileHelper (full_name.c_str (),
-                                         CONFIGURATION_COMMON_NODE_NAME);
+    CONFIGURATION_COMMON_NODE_NAME);
     if (main_node.isEmpty ())
     {
       //throw XMLException("Configuration file is not correct!", main_node);

@@ -8,7 +8,6 @@
 #ifndef _MISSION_GOALTYPE_GOALBASE_H_
 #define _MISSION_GOALTYPE_GOALBASE_H_
 
-
 namespace NS_GoalType
 {
   class GoalBase
@@ -17,7 +16,7 @@ namespace NS_GoalType
     GoalBase ()
     {
     }
-
+    
     virtual
     ~GoalBase ()
     {
@@ -25,6 +24,5 @@ namespace NS_GoalType
   };
 
 }
-
 
 #endif /* MISSION_GOALTYPE_GOALBASE_H_ */

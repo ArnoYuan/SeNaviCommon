@@ -40,33 +40,33 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<ChannelFloat32_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<ChannelFloat32_<ContainerAllocator> const> ConstPtr;
-/*
-    public:
-      virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
-      {
-        NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-        NS_NaviCommon::serialize(stream, name);
-        NS_NaviCommon::serialize(stream, values);
-        return stream.getData();
-      }
+      /*
+       public:
+       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+       {
+       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+       NS_NaviCommon::serialize(stream, name);
+       NS_NaviCommon::serialize(stream, values);
+       return stream.getData();
+       }
 
-      virtual uint8_t *deserialize(uint8_t *read_ptr)
-      {
-        NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-        NS_NaviCommon::deserialize(stream, name);
-        NS_NaviCommon::deserialize(stream, values);
-        return stream.getData();
-      }
+       virtual uint8_t *deserialize(uint8_t *read_ptr)
+       {
+       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+       NS_NaviCommon::deserialize(stream, name);
+       NS_NaviCommon::deserialize(stream, values);
+       return stream.getData();
+       }
 
-      virtual uint32_t serializationLength() const
-      {
-        uint32_t size = 0;
-        size += NS_NaviCommon::serializationLength(name);
-        size += NS_NaviCommon::serializationLength(values);
-        return size;
-      }
+       virtual uint32_t serializationLength() const
+       {
+       uint32_t size = 0;
+       size += NS_NaviCommon::serializationLength(name);
+       size += NS_NaviCommon::serializationLength(values);
+       return size;
+       }
 
-      */
+       */
     };
   
   typedef ChannelFloat32_<std::allocator<void> > ChannelFloat32;
@@ -78,78 +78,83 @@ namespace NS_DataType
 
 namespace NS_NaviCommon
 {
-
-
-
+  
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': False}
 // {'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'sensor_msgs': ['/tmp/binarydeb/ros-kinetic-sensor-msgs-1.12.5/msg']}
-
+  
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
-
-
-
-
-template <class ContainerAllocator>
-struct IsFixedSize< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct IsFixedSize< NS_DataType::ChannelFloat32_<ContainerAllocator> const>
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct IsMessage< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-  : TrueType
-  { };
-
-template <class ContainerAllocator>
-struct IsMessage< NS_DataType::ChannelFloat32_<ContainerAllocator> const>
-  : TrueType
-  { };
-
-template <class ContainerAllocator>
-struct HasHeader< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct HasHeader< NS_DataType::ChannelFloat32_<ContainerAllocator> const>
-  : FalseType
-  { };
-
-
-template<class ContainerAllocator>
-struct MD5Sum< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "3d40139cdd33dfedcb71ffeeeb42ae7f";
-  }
-
-  static const char* value(const NS_DataType::ChannelFloat32_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3d40139cdd33dfedULL;
-  static const uint64_t static_value2 = 0xcb71ffeeeb42ae7fULL;
-};
-
-template<class ContainerAllocator>
-struct DataType< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "sensor_msgs/ChannelFloat32";
-  }
-
-  static const char* value(const NS_DataType::ChannelFloat32_<ContainerAllocator>&) { return value(); }
-};
-
-template<class ContainerAllocator>
-struct Definition< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "# This message is used by the PointCloud message to hold optional data\n\
+  
+  template<class ContainerAllocator>
+    struct IsFixedSize<NS_DataType::ChannelFloat32_<ContainerAllocator> > : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsFixedSize<NS_DataType::ChannelFloat32_<ContainerAllocator> const> : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsMessage<NS_DataType::ChannelFloat32_<ContainerAllocator> > : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsMessage<NS_DataType::ChannelFloat32_<ContainerAllocator> const> : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct HasHeader<NS_DataType::ChannelFloat32_<ContainerAllocator> > : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct HasHeader<NS_DataType::ChannelFloat32_<ContainerAllocator> const> : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct MD5Sum<NS_DataType::ChannelFloat32_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "3d40139cdd33dfedcb71ffeeeb42ae7f";
+      }
+      
+      static const char*
+      value (const NS_DataType::ChannelFloat32_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+      static const uint64_t static_value1 = 0x3d40139cdd33dfedULL;
+      static const uint64_t static_value2 = 0xcb71ffeeeb42ae7fULL;
+    };
+  
+  template<class ContainerAllocator>
+    struct DataType<NS_DataType::ChannelFloat32_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "sensor_msgs/ChannelFloat32";
+      }
+      
+      static const char*
+      value (const NS_DataType::ChannelFloat32_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+    };
+  
+  template<class ContainerAllocator>
+    struct Definition<NS_DataType::ChannelFloat32_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "# This message is used by the PointCloud message to hold optional data\n\
 # associated with each point in the cloud. The length of the values\n\
 # array should be the same as the length of the points array in the\n\
 # PointCloud, and each value should be associated with the corresponding\n\
@@ -174,28 +179,34 @@ string name\n\
 # PointCloud.\n\
 float32[] values\n\
 ";
-  }
-
-  static const char* value(const NS_DataType::ChannelFloat32_<ContainerAllocator>&) { return value(); }
-};
+      }
+      
+      static const char*
+      value (const NS_DataType::ChannelFloat32_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+    };
 
 } // namespace message_traits
 
-
 namespace NS_NaviCommon
 {
-
-  template<class ContainerAllocator> struct Serializer< NS_DataType::ChannelFloat32_<ContainerAllocator> >
-  {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+  
+  template<class ContainerAllocator>
+    struct Serializer<NS_DataType::ChannelFloat32_<ContainerAllocator> >
     {
-      stream.next(m.name);
-      stream.next(m.values);
-    }
-
-    DECLARE_ALLINONE_SERIALIZER
-  }; // struct ChannelFloat32_
-
-} // namespace serialization
-
+      template<typename Stream, typename T>
+        inline static void
+        allInOne (Stream& stream, T m)
+        {
+          stream.next (m.name);
+          stream.next (m.values);
+        }
+      
+      DECLARE_ALLINONE_SERIALIZER}; // struct ChannelFloat32_
+    
+  }
+  // namespace serialization
+  
 #endif /* DATASET_DATATYPE_CHANNELFLOAT32_H_ */

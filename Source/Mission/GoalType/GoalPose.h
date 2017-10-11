@@ -13,7 +13,7 @@
 
 namespace NS_GoalType
 {
-
+  
   template<class ContainerAllocator>
     struct GoalPose_: public GoalBase
     {
@@ -36,13 +36,12 @@ namespace NS_GoalType
       typedef boost::shared_ptr<GoalPose_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<GoalPose_<ContainerAllocator> const> ConstPtr;
     };
-
+  
   typedef GoalPose_<std::allocator<void> > GoalPose;
-
+  
   typedef boost::shared_ptr<GoalPose> RequestMapPtr;
   typedef boost::shared_ptr<GoalPose const> RequestMapConstPtr;
 
 }
-
 
 #endif /* MISSION_GOALTYPE_GOALPOSE_H_ */

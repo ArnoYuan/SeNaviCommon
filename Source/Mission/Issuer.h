@@ -16,15 +16,13 @@ namespace NS_NaviCommon
   {
   public:
     Issuer ();
-    virtual ~Issuer ();
+    virtual
+    ~Issuer ();
   public:
-    bool publish ();
+    bool
+    publish ();
   };
 
-
-
-
 }
-
 
 #endif /* MISSION_ISSUER_H_ */

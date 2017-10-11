@@ -14,15 +14,12 @@ namespace NS_NaviCommon
   {
     GOAL_TYPE_TARGET_POSE,
   } MissionGoalType;
-
+  
   typedef enum
   {
-    GOAL_READY,
-    GOAL_EXECUTING,
-    GOAL_ABORTED,
-    GOAL_FINISHED
+    GOAL_READY, GOAL_EXECUTING, GOAL_ABORTED, GOAL_FINISHED
   } MissionGoalStatus;
-
+  
   class MissionGoal
   {
   public:
@@ -33,11 +30,12 @@ namespace NS_NaviCommon
       goal_id = id;
       type = type_;
     }
-
-    virtual ~MissionGoal ()
+    
+    virtual
+    ~MissionGoal ()
     {
     }
-
+    
   private:
     int goal_id;
     MissionGoalStatus status;
@@ -50,31 +48,31 @@ namespace NS_NaviCommon
     {
       status = GOAL_EXECUTING;
     }
-
+    
     void
     abort ()
     {
       status = GOAL_ABORTED;
     }
-
+    
     void
     end ()
     {
       status = GOAL_FINISHED;
     }
-
+    
     MissionGoalStatus
     getStatus ()
     {
       return status;
     }
-
+    
     NS_GoalType::GoalBase*
     getGoal ()
     {
       return goal;
     }
-
+    
   };
 
 }

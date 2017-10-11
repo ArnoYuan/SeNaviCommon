@@ -17,14 +17,15 @@
 
 namespace NS_NaviCommon
 {
-
+  
   class Mission
   {
   public:
     Mission ();
-    virtual ~Mission ();
+    virtual
+    ~Mission ();
   private:
-
+    
   };
 }
 

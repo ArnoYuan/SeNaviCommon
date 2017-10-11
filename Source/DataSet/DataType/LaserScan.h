@@ -54,56 +54,56 @@ namespace NS_DataType
 
       typedef boost::shared_ptr<LaserScan_<ContainerAllocator> > Ptr;
       typedef boost::shared_ptr<LaserScan_<ContainerAllocator> const> ConstPtr;
-/*
-    public:
-      virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
-      {
-        NS_NaviCommon::OStream stream(write_ptr, 1000000000);
-        NS_NaviCommon::serialize(stream, header);
-        NS_NaviCommon::serialize(stream, angle_min);
-        NS_NaviCommon::serialize(stream, angle_max);
-        NS_NaviCommon::serialize(stream, angle_increment);
-        NS_NaviCommon::serialize(stream, time_increment);
-        NS_NaviCommon::serialize(stream, scan_time);
-        NS_NaviCommon::serialize(stream, range_min);
-        NS_NaviCommon::serialize(stream, range_max);
-        NS_NaviCommon::serialize(stream, ranges);
-        NS_NaviCommon::serialize(stream, intensities);
-        return stream.getData();
-      }
+      /*
+       public:
+       virtual uint8_t *serialize(uint8_t *write_ptr, uint32_t seq) const
+       {
+       NS_NaviCommon::OStream stream(write_ptr, 1000000000);
+       NS_NaviCommon::serialize(stream, header);
+       NS_NaviCommon::serialize(stream, angle_min);
+       NS_NaviCommon::serialize(stream, angle_max);
+       NS_NaviCommon::serialize(stream, angle_increment);
+       NS_NaviCommon::serialize(stream, time_increment);
+       NS_NaviCommon::serialize(stream, scan_time);
+       NS_NaviCommon::serialize(stream, range_min);
+       NS_NaviCommon::serialize(stream, range_max);
+       NS_NaviCommon::serialize(stream, ranges);
+       NS_NaviCommon::serialize(stream, intensities);
+       return stream.getData();
+       }
 
-      virtual uint8_t *deserialize(uint8_t *read_ptr)
-      {
-        NS_NaviCommon::IStream stream(read_ptr, 1000000000);
-        NS_NaviCommon::deserialize(stream, header);
-        NS_NaviCommon::deserialize(stream, angle_min);
-        NS_NaviCommon::deserialize(stream, angle_max);
-        NS_NaviCommon::deserialize(stream, angle_increment);
-        NS_NaviCommon::deserialize(stream, time_increment);
-        NS_NaviCommon::deserialize(stream, scan_time);
-        NS_NaviCommon::deserialize(stream, range_min);
-        NS_NaviCommon::deserialize(stream, range_max);
-        NS_NaviCommon::deserialize(stream, ranges);
-        NS_NaviCommon::deserialize(stream, intensities);
-        return stream.getData();
-      }
+       virtual uint8_t *deserialize(uint8_t *read_ptr)
+       {
+       NS_NaviCommon::IStream stream(read_ptr, 1000000000);
+       NS_NaviCommon::deserialize(stream, header);
+       NS_NaviCommon::deserialize(stream, angle_min);
+       NS_NaviCommon::deserialize(stream, angle_max);
+       NS_NaviCommon::deserialize(stream, angle_increment);
+       NS_NaviCommon::deserialize(stream, time_increment);
+       NS_NaviCommon::deserialize(stream, scan_time);
+       NS_NaviCommon::deserialize(stream, range_min);
+       NS_NaviCommon::deserialize(stream, range_max);
+       NS_NaviCommon::deserialize(stream, ranges);
+       NS_NaviCommon::deserialize(stream, intensities);
+       return stream.getData();
+       }
 
-      virtual uint32_t serializationLength() const
-      {
-        uint32_t size = 0;
-        size += NS_NaviCommon::serializationLength(header);
-        size += NS_NaviCommon::serializationLength(angle_min);
-        size += NS_NaviCommon::serializationLength(angle_max);
-        size += NS_NaviCommon::serializationLength(angle_increment);
-        size += NS_NaviCommon::serializationLength(time_increment);
-        size += NS_NaviCommon::serializationLength(scan_time);
-        size += NS_NaviCommon::serializationLength(range_min);
-        size += NS_NaviCommon::serializationLength(range_max);
-        size += NS_NaviCommon::serializationLength(ranges);
-        size += NS_NaviCommon::serializationLength(intensities);
-        return size;
-      }
-*/
+       virtual uint32_t serializationLength() const
+       {
+       uint32_t size = 0;
+       size += NS_NaviCommon::serializationLength(header);
+       size += NS_NaviCommon::serializationLength(angle_min);
+       size += NS_NaviCommon::serializationLength(angle_max);
+       size += NS_NaviCommon::serializationLength(angle_increment);
+       size += NS_NaviCommon::serializationLength(time_increment);
+       size += NS_NaviCommon::serializationLength(scan_time);
+       size += NS_NaviCommon::serializationLength(range_min);
+       size += NS_NaviCommon::serializationLength(range_max);
+       size += NS_NaviCommon::serializationLength(ranges);
+       size += NS_NaviCommon::serializationLength(intensities);
+       return size;
+       }
+       */
     };
   
   typedef LaserScan_<std::allocator<void> > LaserScan;
@@ -112,79 +112,85 @@ namespace NS_DataType
   typedef boost::shared_ptr<LaserScan const> LaserScanConstPtr;
 }
 
-
 namespace NS_NaviCommon
 {
-
+  
 // BOOLTRAITS {'IsFixedSize': False, 'IsMessage': True, 'HasHeader': True}
 // {'std_msgs': ['/opt/ros/kinetic/share/std_msgs/cmake/../msg'], 'geometry_msgs': ['/opt/ros/kinetic/share/geometry_msgs/cmake/../msg'], 'sensor_msgs': ['/tmp/binarydeb/ros-kinetic-sensor-msgs-1.12.5/msg']}
-
+  
 // !!!!!!!!!!! ['__class__', '__delattr__', '__dict__', '__doc__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_parsed_fields', 'constants', 'fields', 'full_name', 'has_header', 'header_present', 'names', 'package', 'parsed_fields', 'short_name', 'text', 'types']
-
-
-
-
-template <class ContainerAllocator>
-struct IsFixedSize< NS_DataType::LaserScan_<ContainerAllocator> >
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct IsFixedSize< NS_DataType::LaserScan_<ContainerAllocator> const>
-  : FalseType
-  { };
-
-template <class ContainerAllocator>
-struct IsMessage< NS_DataType::LaserScan_<ContainerAllocator> >
-  : TrueType
-  { };
-
-template <class ContainerAllocator>
-struct IsMessage< NS_DataType::LaserScan_<ContainerAllocator> const>
-  : TrueType
-  { };
-
-template <class ContainerAllocator>
-struct HasHeader< NS_DataType::LaserScan_<ContainerAllocator> >
-  : TrueType
-  { };
-
-template <class ContainerAllocator>
-struct HasHeader< NS_DataType::LaserScan_<ContainerAllocator> const>
-  : TrueType
-  { };
-
-
-template<class ContainerAllocator>
-struct MD5Sum< NS_DataType::LaserScan_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "90c7ef2dc6895d81024acba2ac42f369";
-  }
-
-  static const char* value(const NS_DataType::LaserScan_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x90c7ef2dc6895d81ULL;
-  static const uint64_t static_value2 = 0x024acba2ac42f369ULL;
-};
-
-template<class ContainerAllocator>
-struct DataType< NS_DataType::LaserScan_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "sensor_msgs/LaserScan";
-  }
-
-  static const char* value(const NS_DataType::LaserScan_<ContainerAllocator>&) { return value(); }
-};
-
-template<class ContainerAllocator>
-struct Definition< NS_DataType::LaserScan_<ContainerAllocator> >
-{
-  static const char* value()
-  {
-    return "# Single scan from a planar laser range-finder\n\
+  
+  template<class ContainerAllocator>
+    struct IsFixedSize<NS_DataType::LaserScan_<ContainerAllocator> > : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsFixedSize<NS_DataType::LaserScan_<ContainerAllocator> const> : FalseType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsMessage<NS_DataType::LaserScan_<ContainerAllocator> > : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct IsMessage<NS_DataType::LaserScan_<ContainerAllocator> const> : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct HasHeader<NS_DataType::LaserScan_<ContainerAllocator> > : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct HasHeader<NS_DataType::LaserScan_<ContainerAllocator> const> : TrueType
+    {
+    };
+  
+  template<class ContainerAllocator>
+    struct MD5Sum<NS_DataType::LaserScan_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "90c7ef2dc6895d81024acba2ac42f369";
+      }
+      
+      static const char*
+      value (const NS_DataType::LaserScan_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+      static const uint64_t static_value1 = 0x90c7ef2dc6895d81ULL;
+      static const uint64_t static_value2 = 0x024acba2ac42f369ULL;
+    };
+  
+  template<class ContainerAllocator>
+    struct DataType<NS_DataType::LaserScan_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "sensor_msgs/LaserScan";
+      }
+      
+      static const char*
+      value (const NS_DataType::LaserScan_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+    };
+  
+  template<class ContainerAllocator>
+    struct Definition<NS_DataType::LaserScan_<ContainerAllocator> >
+    {
+      static const char*
+      value ()
+      {
+        return "# Single scan from a planar laser range-finder\n\
 #\n\
 # If you have another ranging device with different behavior (e.g. a sonar\n\
 # array), please find or create a different message, since applications\n\
@@ -232,33 +238,38 @@ time stamp\n\
 # 1: global frame\n\
 string frame_id\n\
 ";
-  }
-
-  static const char* value(const NS_DataType::LaserScan_<ContainerAllocator>&) { return value(); }
-};
+      }
+      
+      static const char*
+      value (const NS_DataType::LaserScan_<ContainerAllocator>&)
+      {
+        return value ();
+      }
+    };
 }
 
 namespace NS_NaviCommon
 {
-  template<class ContainerAllocator> struct Serializer< NS_DataType::LaserScan_<ContainerAllocator> >
-  {
-    template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
+  template<class ContainerAllocator>
+    struct Serializer<NS_DataType::LaserScan_<ContainerAllocator> >
     {
-      stream.next(m.header);
-      stream.next(m.angle_min);
-      stream.next(m.angle_max);
-      stream.next(m.angle_increment);
-      stream.next(m.time_increment);
-      stream.next(m.scan_time);
-      stream.next(m.range_min);
-      stream.next(m.range_max);
-      stream.next(m.ranges);
-      stream.next(m.intensities);
-    }
-
-    DECLARE_ALLINONE_SERIALIZER
-  }; // struct LaserScan_
-}
-
-
+      template<typename Stream, typename T>
+        inline static void
+        allInOne (Stream& stream, T m)
+        {
+          stream.next (m.header);
+          stream.next (m.angle_min);
+          stream.next (m.angle_max);
+          stream.next (m.angle_increment);
+          stream.next (m.time_increment);
+          stream.next (m.scan_time);
+          stream.next (m.range_min);
+          stream.next (m.range_max);
+          stream.next (m.ranges);
+          stream.next (m.intensities);
+        }
+      
+      DECLARE_ALLINONE_SERIALIZER}; // struct LaserScan_
+  }
+  
 #endif /* _LASERSCAN_H_ */

@@ -9,13 +9,13 @@
 
 namespace NS_NaviCommon
 {
-  /*
-  void
-  disableStdoutStream ()
-  {
-    std::cout.setstate (std::ios::failbit);
-    std::cerr.setstate (std::ios::failbit);
-  };
-  */
+/*
+ void
+ disableStdoutStream ()
+ {
+ std::cout.setstate (std::ios::failbit);
+ std::cerr.setstate (std::ios::failbit);
+ };
+ */
 
 } /* namespace NS_NaviCommon */

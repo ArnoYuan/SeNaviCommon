@@ -19,13 +19,12 @@
 namespace NS_DataSet
 {
   using namespace boost::interprocess;
-
+  
   typedef enum
   {
-    DATASET_IDLE,
-    DATASET_PROCESSING,
-  }DataSetStatus;
-
+    DATASET_IDLE, DATASET_PROCESSING,
+  } DataSetStatus;
+  
   typedef struct
   {
     boost::interprocess::interprocess_mutex lock;
@@ -34,7 +33,7 @@ namespace NS_DataSet
     DataSetStatus status;
 
     size_t buf_len;
-  }DataSetOperation;
+  } DataSetOperation;
 
 }
 

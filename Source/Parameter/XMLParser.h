@@ -229,43 +229,43 @@ public:
   XMLNode getChildNode(XMLCSTR name, int i) const;// return ith child node with specific name
                                                   //     (return an empty node if failing)
   XMLNode getChildNode(XMLCSTR name, int *i=NULL) const;// return next child node with specific name
-                                                        //     (return an empty node if failing)
+                                                  //     (return an empty node if failing)
   XMLNode getChildNodeWithAttribute(XMLCSTR tagName,// return child node with specific name/attribute
-  XMLCSTR attributeName,//     (return an empty node if failing)
-  XMLCSTR attributeValue=NULL,//
-  int *i=NULL) const;//
-  int nChildNode(XMLCSTR name) const;// return the number of child node with specific name
-  int nChildNode() const;// nbr of child node
-  XMLAttribute getAttribute(int i=0) const;// return ith attribute
-  XMLCSTR getAttributeName(int i=0) const;// return ith attribute name
-  XMLCSTR getAttributeValue(int i=0) const;// return ith attribute value
-  char isAttributeSet(XMLCSTR name) const;// test if an attribute with a specific name is given
+  XMLCSTR attributeName,                          //     (return an empty node if failing)
+  XMLCSTR attributeValue=NULL,                    //
+  int *i=NULL) const;                             //
+  int nChildNode(XMLCSTR name) const;             // return the number of child node with specific name
+  int nChildNode() const;                         // nbr of child node
+  XMLAttribute getAttribute(int i=0) const;       // return ith attribute
+  XMLCSTR getAttributeName(int i=0) const;        // return ith attribute name
+  XMLCSTR getAttributeValue(int i=0) const;       // return ith attribute value
+  char isAttributeSet(XMLCSTR name) const;        // test if an attribute with a specific name is given
   XMLCSTR getAttribute(XMLCSTR name, int i) const;// return ith attribute content with specific name
                                                   //     (return a NULL if failing)
   XMLCSTR getAttribute(XMLCSTR name, int *i=NULL) const;// return next attribute content with specific name
-                                                        //     (return a NULL if failing)
-  int nAttribute() const;// nbr of attribute
-  XMLClear getClear(int i=0) const;// return ith clear field (comments)
-  int nClear() const;// nbr of clear field
+                                                  //     (return a NULL if failing)
+  int nAttribute() const;                         // nbr of attribute
+  XMLClear getClear(int i=0) const;               // return ith clear field (comments)
+  int nClear() const;                             // nbr of clear field
   XMLSTR createXMLString(int nFormat=1, int *pnSize=NULL) const;// create XML string starting from current XMLNode
-                                                                // if nFormat==0, no formatting is required
-                                                                // otherwise this returns an user friendly XML string from a
-                                                                // given element with appropriate white spaces and carriage returns.
-                                                                // if pnSize is given it returns the size in character of the string.
+                                                  // if nFormat==0, no formatting is required
+                                                  // otherwise this returns an user friendly XML string from a
+                                                  // given element with appropriate white spaces and carriage returns.
+                                                  // if pnSize is given it returns the size in character of the string.
   XMLError writeToFile(XMLCSTR filename, const char *encoding=NULL, char nFormat=1) const;
-                                                                // save the content of an xmlNode inside a file.
-                                                                // the nFormat parameter has the same meaning as in the
-                                                                // createXMLString function. If "strictUTF8Parsing=1", the
-                                                                // the encoding parameter is ignored and always set to
-                                                                // "utf-8". If "_XMLUNICODE=1", the encoding parameter is
-                                                                // ignored and always set to "utf-16".
-  XMLNodeContents enumContents(int i) const;// enumerate all the different contents (attribute,child,text,
-                                            //     clear) of the current XMLNode. The order is reflecting
-                                            //     the order of the original file/string.
-                                            //     NOTE: 0 <= i < nElement();
-  int nElement() const;// nbr of different contents for current node
-  char isEmpty() const;// is this node Empty?
-  char isDeclaration() const;// is this node a declaration <? .... ?>
+                                                  // save the content of an xmlNode inside a file.
+                                                  // the nFormat parameter has the same meaning as in the
+                                                  // createXMLString function. If "strictUTF8Parsing=1", the
+                                                  // the encoding parameter is ignored and always set to
+                                                  // "utf-8". If "_XMLUNICODE=1", the encoding parameter is
+                                                  // ignored and always set to "utf-16".
+  XMLNodeContents enumContents(int i) const;      // enumerate all the different contents (attribute,child,text,
+                                                  //     clear) of the current XMLNode. The order is reflecting
+                                                  //     the order of the original file/string.
+                                                  //     NOTE: 0 <= i < nElement();
+  int nElement() const;                           // nbr of different contents for current node
+  char isEmpty() const;                           // is this node Empty?
+  char isDeclaration() const;                     // is this node a declaration <? .... ?>
   
 // to allow shallow/fast copy:
   ~XMLNode();
@@ -297,16 +297,16 @@ public:
   XMLAttribute *updateAttribute(XMLCSTR lpszNewValue, XMLCSTR lpszNewName=NULL,int i=0);// if the attribute to update is missing, a new one will be added
   XMLAttribute *updateAttribute(XMLCSTR lpszNewValue, XMLCSTR lpszNewName,XMLCSTR lpszOldName);// set lpszNewName=NULL if you don't want to change the name of the attribute
                                                                                                // if the attribute to update is missing, a new one will be added
-  XMLCSTR updateText(XMLCSTR lpszNewValue, int i=0);// if the text to update is missing, a new one will be added
-  XMLCSTR updateText(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);// if the text to update is missing, a new one will be added
-  XMLClear *updateClear(XMLCSTR lpszNewContent, int i=0);// if the clearTag to update is missing, a new one will be added
-  XMLClear *updateClear(XMLClear *newP,XMLClear *oldP);// if the clearTag to update is missing, a new one will be added
-  XMLClear *updateClear(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);// if the clearTag to update is missing, a new one will be added
+  XMLCSTR updateText(XMLCSTR lpszNewValue, int i=0);                                           // if the text to update is missing, a new one will be added
+  XMLCSTR updateText(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);                              // if the text to update is missing, a new one will be added
+  XMLClear *updateClear(XMLCSTR lpszNewContent, int i=0);                                      // if the clearTag to update is missing, a new one will be added
+  XMLClear *updateClear(XMLClear *newP,XMLClear *oldP);                                        // if the clearTag to update is missing, a new one will be added
+  XMLClear *updateClear(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);                           // if the clearTag to update is missing, a new one will be added
   
-  // Some deletion functions:
-  void deleteNodeContent(char force=0);// delete the content of this XMLNode and the subtree.
-                                       // if force=0, while (references to this node still exist), no memory free occurs
-                                       // if force=1, always delete the content of this XMLNode and the subtree and free associated memory
+                                                                                               // Some deletion functions:
+  void deleteNodeContent(char force=0);                                                        // delete the content of this XMLNode and the subtree.
+                                                                                               // if force=0, while (references to this node still exist), no memory free occurs
+                                                                                               // if force=1, always delete the content of this XMLNode and the subtree and free associated memory
   void deleteAttribute(XMLCSTR lpszName);
   void deleteAttribute(int i=0);
   void deleteAttribute(XMLAttribute *anAttribute);
@@ -316,24 +316,24 @@ public:
   void deleteClear(XMLClear *p);
   void deleteClear(XMLCSTR lpszValue);
 
-                                       // The strings given as parameters for the following add and update methods (all these methods have
-                                       // a name with the postfix "_WOSD" that means "WithOut String Duplication" ) will be free'd by the
-                                       // XMLNode class. For example, it means that this is incorrect:
-                                       //    xNode.addText_WOSD("foo");
-                                       //    xNode.updateAttribute_WOSD("#newcolor" ,NULL,"color");
-                                       // In opposition, this is correct:
-                                       //    xNode.addText("foo");
-                                       //    xNode.addText_WOSD(stringDup("foo"));
-                                       //    xNode.updateAttribute("#newcolor" ,NULL,"color");
-                                       //    xNode.updateAttribute_WOSD(stringDup("#newcolor"),NULL,"color");
-                                       // Typically, you will never do:
-                                       //    char *b=(char*)malloc(...);
-                                       //    xNode.addText(b);
-                                       //    free(b);
-                                       // ... but rather:
-                                       //    char *b=(char*)malloc(...);
-                                       //    xNode.addText_WOSD(b);
-                                       //    ('free(b)' is performed by the XMLNode class)
+                                                                                               // The strings given as parameters for the following add and update methods (all these methods have
+                                                                                               // a name with the postfix "_WOSD" that means "WithOut String Duplication" ) will be free'd by the
+                                                                                               // XMLNode class. For example, it means that this is incorrect:
+                                                                                               //    xNode.addText_WOSD("foo");
+                                                                                               //    xNode.updateAttribute_WOSD("#newcolor" ,NULL,"color");
+                                                                                               // In opposition, this is correct:
+                                                                                               //    xNode.addText("foo");
+                                                                                               //    xNode.addText_WOSD(stringDup("foo"));
+                                                                                               //    xNode.updateAttribute("#newcolor" ,NULL,"color");
+                                                                                               //    xNode.updateAttribute_WOSD(stringDup("#newcolor"),NULL,"color");
+                                                                                               // Typically, you will never do:
+                                                                                               //    char *b=(char*)malloc(...);
+                                                                                               //    xNode.addText(b);
+                                                                                               //    free(b);
+                                                                                               // ... but rather:
+                                                                                               //    char *b=(char*)malloc(...);
+                                                                                               //    xNode.addText_WOSD(b);
+                                                                                               //    ('free(b)' is performed by the XMLNode class)
   
   static XMLNode createXMLTopNode_WOSD(XMLCSTR lpszName, char isDeclaration=FALSE);
   XMLNode addChild_WOSD(XMLCSTR lpszName, char isDeclaration=FALSE, int pos=-1);
@@ -351,9 +351,9 @@ public:
   XMLClear *updateClear_WOSD(XMLClear *newP,XMLClear *oldP);
   XMLClear *updateClear_WOSD(XMLCSTR lpszNewValue, XMLCSTR lpszOldValue);
 
-                                       // These are some useful functions when you want to insert a childNode, a text or a XMLClearTag in the
-                                       // middle (at a specified position) of a XMLNode tree already constructed. The value returned by these
-                                       // methods is to be used as last parameter (parameter 'pos') of addChild, addText or addClear.
+                                                                                               // These are some useful functions when you want to insert a childNode, a text or a XMLClearTag in the
+                                                                                               // middle (at a specified position) of a XMLNode tree already constructed. The value returned by these
+                                                                                               // methods is to be used as last parameter (parameter 'pos') of addChild, addText or addClear.
   int positionOfText(int i=0) const;
   int positionOfText(XMLCSTR lpszValue) const;
   int positionOfClear(int i=0) const;
@@ -361,45 +361,45 @@ public:
   int positionOfClear(XMLClear *a) const;
   int positionOfChildNode(int i=0) const;
   int positionOfChildNode(XMLNode x) const;
-  int positionOfChildNode(XMLCSTR name, int i=0) const;// return the position of the ith childNode with the specified name
-                                                       // if (name==NULL) return the position of the ith childNode
+  int positionOfChildNode(XMLCSTR name, int i=0) const;                                        // return the position of the ith childNode with the specified name
+                                                                                               // if (name==NULL) return the position of the ith childNode
   
-                                                       // The setGlobalOptions function allows you to change two global parameters that affect string&file
-                                                       // parsing. First of all, you most-probably will never have to change these 2 global parameters.
-                                                       // About the "guessUnicodeChars" parameter:
-                                                       //     If "guessUnicodeChars=1" and if this library is compiled in UNICODE mode, then the
-                                                       //     "parseFile" and "openFileHelper" functions will test if the file contains ASCII
-                                                       //     characters. If this is the case, then the file will be loaded and converted in memory to
-                                                       //     UNICODE before being parsed. If "guessUnicodeChars=0", no conversion will
-                                                       //     be performed.
-                                                       //
-                                                       //     If "guessUnicodeChars=1" and if this library is compiled in ASCII/UTF8 mode, then the
-                                                       //     "parseFile" and "openFileHelper" functions will test if the file contains UNICODE
-                                                       //     characters. If this is the case, then the file will be loaded and converted in memory to
-                                                       //     ASCII/UTF8 before being parsed. If "guessUnicodeChars=0", no conversion will
-                                                       //     be performed
-                                                       //
-                                                       //     Sometime, it's useful to set "guessUnicodeChars=0" to disable any conversion
-                                                       //     because the test to detect the file-type (ASCII/UTF8 or UNICODE) may fail (rarely).
-                                                       //
-                                                       // About the "strictUTF8Parsing" parameter:
-                                                       //     If "strictUTF8Parsing=0" then we assume that all characters have the same length of 1 byte.
-                                                       //     If "strictUTF8Parsing=1" then the characters have different lengths (from 1 byte to 4 bytes)
-                                                       //     depending on the content of the first byte of the character.
-                                                       // About the "dropWhiteSpace" parameter:
-                                                       //
+                                                                                               // The setGlobalOptions function allows you to change two global parameters that affect string&file
+                                                                                               // parsing. First of all, you most-probably will never have to change these 2 global parameters.
+                                                                                               // About the "guessUnicodeChars" parameter:
+                                                                                               //     If "guessUnicodeChars=1" and if this library is compiled in UNICODE mode, then the
+                                                                                               //     "parseFile" and "openFileHelper" functions will test if the file contains ASCII
+                                                                                               //     characters. If this is the case, then the file will be loaded and converted in memory to
+                                                                                               //     UNICODE before being parsed. If "guessUnicodeChars=0", no conversion will
+                                                                                               //     be performed.
+                                                                                               //
+                                                                                               //     If "guessUnicodeChars=1" and if this library is compiled in ASCII/UTF8 mode, then the
+                                                                                               //     "parseFile" and "openFileHelper" functions will test if the file contains UNICODE
+                                                                                               //     characters. If this is the case, then the file will be loaded and converted in memory to
+                                                                                               //     ASCII/UTF8 before being parsed. If "guessUnicodeChars=0", no conversion will
+                                                                                               //     be performed
+                                                                                               //
+                                                                                               //     Sometime, it's useful to set "guessUnicodeChars=0" to disable any conversion
+                                                                                               //     because the test to detect the file-type (ASCII/UTF8 or UNICODE) may fail (rarely).
+                                                                                               //
+                                                                                               // About the "strictUTF8Parsing" parameter:
+                                                                                               //     If "strictUTF8Parsing=0" then we assume that all characters have the same length of 1 byte.
+                                                                                               //     If "strictUTF8Parsing=1" then the characters have different lengths (from 1 byte to 4 bytes)
+                                                                                               //     depending on the content of the first byte of the character.
+                                                                                               // About the "dropWhiteSpace" parameter:
+                                                                                               //
   
   static void setGlobalOptions(char guessUnicodeChars=1, char strictUTF8Parsing=1, char dropWhiteSpace=1);
 
-                                                       // The next function try to guess if the character encoding is UTF-8. You most-probably will never
-                                                       // have to use this function. It then returns the appropriate value of the global parameter
-                                                       // "strictUTF8Parsing" described above. The guess is based on the content of a buffer of length
-                                                       // "bufLen" bytes that contains the first bytes (minimum 25 bytes; 200 bytes is a good value) of the
-                                                       // file to be parsed. The "openFileHelper" function is using this function to automatically compute
-                                                       // the value of the "strictUTF8Parsing" global parameter. There are several heuristics used to do the
-                                                       // guess. One of the heuristic is based on the "encoding" attribute. The original XML specifications
-                                                       // forbids to use this attribute to do the guess but you can still use it if you set
-                                                       // "useXMLEncodingAttribute" to 1 (this is the default behavior and the behavior of most parsers).
+                                                                                               // The next function try to guess if the character encoding is UTF-8. You most-probably will never
+                                                                                               // have to use this function. It then returns the appropriate value of the global parameter
+                                                                                               // "strictUTF8Parsing" described above. The guess is based on the content of a buffer of length
+                                                                                               // "bufLen" bytes that contains the first bytes (minimum 25 bytes; 200 bytes is a good value) of the
+                                                                                               // file to be parsed. The "openFileHelper" function is using this function to automatically compute
+                                                                                               // the value of the "strictUTF8Parsing" global parameter. There are several heuristics used to do the
+                                                                                               // guess. One of the heuristic is based on the "encoding" attribute. The original XML specifications
+                                                                                               // forbids to use this attribute to do the guess but you can still use it if you set
+                                                                                               // "useXMLEncodingAttribute" to 1 (this is the default behavior and the behavior of most parsers).
   
   static char guessUTF8ParsingParameterValue(void *buffer, int bufLen, char useXMLEncodingAttribute=1);
 

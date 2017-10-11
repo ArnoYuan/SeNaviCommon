@@ -76,9 +76,9 @@ namespace NS_NaviCommon
     FD_SET(handle, &rcv_fd);
     tv.tv_sec = wait_seconds;
     tv.tv_usec = 0;
-
-    addr_len = sizeof (struct sockaddr);
-
+    
+    addr_len = sizeof(struct sockaddr);
+    
     int ret = select (handle + 1, &rcv_fd, NULL, NULL, &tv);
     if (ret > 0)
     {

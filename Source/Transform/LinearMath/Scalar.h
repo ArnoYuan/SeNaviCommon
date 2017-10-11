@@ -1,4 +1,3 @@
-
 #ifndef _TRANSFORM_SCALAR_H_
 #define _TRANSFORM_SCALAR_H_
 
