@@ -28,7 +28,6 @@ Source/Communication \
 Source/ConfigFile \
 Source/Console \
 Source/Exception \
-Source/MapGenerator \
 Source/Mission \
 Source/Parameter \
 Source/Serialization \
