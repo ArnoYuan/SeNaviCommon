@@ -53,7 +53,7 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_GREEN);
-      printf("[Message]: ");
+      printf("[MSG]: ");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -72,7 +72,7 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_YELLOW);
-      printf("[Warning]: ");
+      printf("[WARN]: ");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -91,7 +91,7 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_RED);
-      printf("[Error]: ");
+      printf("[ERR]: ");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -112,7 +112,7 @@ namespace NS_NaviCommon
         va_end(args);
         if(use_vt100)
           printf(COLOR_CYAN);
-        printf("[Debug]: ");
+        printf("[DBG]: ");
         printf(out);
         if(use_vt100)
           printf(COLOR_NONE);
