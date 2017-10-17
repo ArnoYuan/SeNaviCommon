@@ -17,6 +17,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "../Time/Utils.h"
 
 using namespace std;
 namespace NS_NaviCommon
@@ -32,16 +33,22 @@ namespace NS_NaviCommon
   class Console
   {
   public:
-    Console()
+    Console():
+      use_vt100(true), app_name("UNKNOWN")
     {
-    }
-    ;
+    };
+
+    Console(std::string name):
+      use_vt100(true), app_name(name)
+    {
+    };
+
     ~Console()
     {
-    }
-    ;
+    };
   private:
-    bool use_vt100 = true;
+    bool use_vt100;
+    std::string app_name;
   public:
     void message(const char* message_, ...)
     {
@@ -53,7 +60,9 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_GREEN);
-      printf("[MSG]: ");
+      printf("[%s]", NS_NaviCommon::getTimeString().c_str());
+      printf("[%s]", app_name.c_str());
+      printf("[M]:");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -72,7 +81,9 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_YELLOW);
-      printf("[WARN]: ");
+      printf("[%s]", NS_NaviCommon::getTimeString().c_str());
+      printf("[%s]", app_name.c_str());
+      printf("[W]:");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -91,7 +102,9 @@ namespace NS_NaviCommon
       va_end(args);
       if(use_vt100)
         printf(COLOR_RED);
-      printf("[ERR]: ");
+      printf("[%s]", NS_NaviCommon::getTimeString().c_str());
+      printf("[%s]", app_name.c_str());
+      printf("[E]:");
       printf(out);
       if(use_vt100)
         printf(COLOR_NONE);
@@ -112,7 +125,9 @@ namespace NS_NaviCommon
         va_end(args);
         if(use_vt100)
           printf(COLOR_CYAN);
-        printf("[DBG]: ");
+        printf("[%s]", NS_NaviCommon::getTimeString().c_str());
+        printf("[%s]", app_name.c_str());
+        printf("[D]:");
         printf(out);
         if(use_vt100)
           printf(COLOR_NONE);
