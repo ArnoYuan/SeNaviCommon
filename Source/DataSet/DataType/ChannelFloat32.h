@@ -203,7 +203,8 @@ namespace NS_NaviCommon
       stream.next(m.values);
     }
 
-    DECLARE_ALLINONE_SERIALIZER}; // struct ChannelFloat32_
+    DECLARE_ALLINONE_SERIALIZER
+  }; // struct ChannelFloat32_
 
 }
 // namespace serialization

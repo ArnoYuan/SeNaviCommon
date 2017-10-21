@@ -169,7 +169,8 @@ namespace NS_NaviCommon
       stream.next(m.map);
     }
 
-    DECLARE_ALLINONE_SERIALIZER}; // struct ServiceMap_
+    DECLARE_ALLINONE_SERIALIZER
+  }; // struct ServiceMap_
 
 }
 // namespace serialization

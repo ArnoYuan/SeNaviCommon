@@ -172,7 +172,8 @@ namespace NS_NaviCommon
       stream.next(m.transform);
     }
 
-    DECLARE_ALLINONE_SERIALIZER}; // struct ServiceTransform_
+    DECLARE_ALLINONE_SERIALIZER
+  }; // struct ServiceTransform_
 
 }
 // namespace serialization

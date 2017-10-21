@@ -16,7 +16,6 @@ RM := rm -rf
 -include Source/Exception/subdir.mk
 -include Source/Console/subdir.mk
 -include Source/ConfigFile/subdir.mk
--include Source/Communication/subdir.mk
 -include Source/Callbacks/subdir.mk
 -include subdir.mk
 -include objects.mk

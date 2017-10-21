@@ -170,7 +170,8 @@ namespace NS_NaviCommon
       stream.next(m.odom);
     }
 
-    DECLARE_ALLINONE_SERIALIZER}; // struct ServiceOdometry_
+    DECLARE_ALLINONE_SERIALIZER
+  }; // struct ServiceOdometry_
 
 }
 // namespace serialization
