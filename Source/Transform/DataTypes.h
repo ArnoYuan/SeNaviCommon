@@ -2,14 +2,14 @@
 #define _TRANSFORM_DATATYPES_H_
 
 #include <string>
-#include <DataSet/DataType/PointStamped.h>
-#include <DataSet/DataType/Vector3Stamped.h>
-#include <DataSet/DataType/QuaternionStamped.h>
-#include <DataSet/DataType/TransformStamped.h>
-#include <DataSet/DataType/PoseStamped.h>
-#include <Time/Time.h>
+#include "../DataSet/DataType/PointStamped.h"
+#include "../DataSet/DataType/Vector3Stamped.h"
+#include "../DataSet/DataType/QuaternionStamped.h"
+#include "../DataSet/DataType/TransformStamped.h"
+#include "../DataSet/DataType/PoseStamped.h"
+#include "../Time/Time.h"
 
-#include <Console/Console.h>
+#include "../Console/Console.h"
 
 #include "LinearMath/Vector3.h"
 #include "LinearMath/Transform.h"
