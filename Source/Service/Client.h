@@ -13,6 +13,7 @@
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include "Service.h"
 #include "../Console/Console.h"
+#include "Serialization/Serialization.h"
 
 namespace NS_Service
 {
