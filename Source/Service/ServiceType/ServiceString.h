@@ -9,6 +9,7 @@
 #define _SERVICETYPE_SERVICESTRING_H_
 
 #include "ServiceBase.h"
+#include "../../Serialization/Serialization.h"
 
 namespace NS_ServiceType
 {
