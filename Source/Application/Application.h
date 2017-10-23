@@ -82,11 +82,10 @@ public:
     console.message("Application is initializing...");
 
     boost::program_options::options_description options("Application options");
-    options.add_options()("help,h", "application help message")(
-        "log,l", boost::program_options::value< string >(),
-        "dump logs to log file")("verbose,v", "run debug output")(
-        "core,c", boost::program_options::value< int >(),
-        "if application run in smp mode, use this parameter to bind cpu core");
+    options.add_options()("help,h", "application help message")
+        ("log,l", "dump logs to remote")
+        ("verbose,v", "run debug output")
+        ("core,c", boost::program_options::value< int >(), "if application run in smp mode, use this parameter to bind cpu core");
 
     boost::program_options::variables_map vm;
     boost::program_options::store(
@@ -101,18 +100,16 @@ public:
 
     if(vm.count("verbose"))
     {
-      console.debugOn();
+      console.showDebug(true);
     }
     else
     {
-      console.debugOff();
+      console.showDebug(false);
     }
 
     if(vm.count("log"))
     {
-      string log_file = vm["log"].as< string >();
-      console.setVT100(false);
-      console.redirect(log_file);
+      console.redirect();
     }
 
     if(vm.count("core"))
