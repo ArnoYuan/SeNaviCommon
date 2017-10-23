@@ -24,6 +24,8 @@ class Application
 public:
   Application()
   {
+    std::string self_name = getSelfName();
+    console = NS_NaviCommon::Console(self_name);
   }
   ;
   virtual ~Application()
@@ -40,6 +42,20 @@ protected:
   boost::thread pending_thread;
 
 private:
+
+  std::string getSelfName()
+  {
+    char full_path[1024] = {0};
+
+    if(readlink("/proc/self/exe", full_path, sizeof(full_path)) <= 0)
+        return "";
+
+    std::string path_str(full_path);
+    int last_slash_index = path_str.find_last_of('/');
+    std::string exe_name = path_str.substr(last_slash_index + 1, -1);
+
+    return exe_name;
+  }
 
   void working()
   {
