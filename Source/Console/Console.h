@@ -56,18 +56,20 @@ namespace NS_NaviCommon
     {
       std::string log_fifo_path = "/tmp/" + app_name + ".log";
 
-      maskStdout();
-
       if(mkfifo(log_fifo_path.c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) < 0 && errno != EEXIST)
       {
+        error("Make log fifo fail!");
         return false;
       }
 
       log_fifo_id = open(log_fifo_path.c_str(), O_WRONLY);
       if(log_fifo_id < 0)
       {
+        error("Open log fifo fail!");
         return false;
       }
+
+      maskStdout();
 
       return true;
     }
@@ -154,7 +156,7 @@ namespace NS_NaviCommon
       strcat(out, NS_NaviCommon::getTimeString().c_str());
       strcat(out, "][");
       strcat(out, app_name.c_str());
-      strcat(out, "][E]:");
+      strcat(out, "][D]:");
       strcat(out, msg);
       strcat(out, "\n");
 
