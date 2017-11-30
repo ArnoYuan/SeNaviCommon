@@ -13,20 +13,53 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
-#include "GoalType/GoalBase.h"
 
-namespace NS_NaviCommon
+namespace NS_Mission
 {
-
-  class Mission
+  typedef struct
   {
-  public:
-    Mission();
-    virtual
-    ~Mission();
-  private:
+    double x;
+    double y;
+    double yaw;
+  }MissionGoal;
 
-  };
+  typedef enum
+  {
+    MISSION_STANDBY,
+    MISSION_VALIDATING,
+    MISSION_ACTING,
+  }MissionStatus;
+
+  typedef enum
+  {
+    MISSION_SET_GOAL,
+    MISSION_CANCEL,
+    MISSION_GET_POSITION,
+  }MissionOperation;
+
+  typedef enum
+  {
+    MISSION_ACCEPT,
+    MISSION_REJECT,
+    MISSION_ABORT,
+    MISSION_TIMEOUT,
+    MISSION_SUCCEED,
+  }MissionResult;
+
+  typedef struct
+  {
+    MissionStatus status;
+    MissionResult result;
+    MissionOperation operation;
+
+    boost::interprocess::interprocess_mutex lock;
+    boost::interprocess::interprocess_condition issuer_cond;
+    boost::interprocess::interprocess_condition executor_cond;
+
+    int mission_id;
+    MissionGoal goal;
+
+  }MissionObject;
 }
 
 #endif /* MISSION_MISSION_H_ */
