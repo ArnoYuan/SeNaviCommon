@@ -11,12 +11,11 @@
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+#include "Mission.h"
 
 namespace NS_Mission
 {
   using namespace boost::interprocess;
-
-  #define SHM_NAME "MISSION"
 
   class Issuer
   {
@@ -31,7 +30,10 @@ namespace NS_Mission
     virtual ~Issuer()
     {
       if(active)
+      {
+        active = false;
         proc_thread.join();
+      }
     }
 
   private:
@@ -98,6 +100,8 @@ namespace NS_Mission
       {
         return false;
       }
+
+      object->status = MISSION_ACTING;
 
       return true;
     }
@@ -183,6 +187,8 @@ namespace NS_Mission
         last_result = MISSION_ABORT;
         return false;
       }
+
+      object->status = MISSION_STANDBY;
 
       return true;
     }

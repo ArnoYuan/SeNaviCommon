@@ -16,6 +16,8 @@
 
 namespace NS_Mission
 {
+#define SHM_NAME "MISSION"
+
   typedef struct
   {
     double x;
@@ -34,7 +36,6 @@ namespace NS_Mission
   {
     MISSION_SET_GOAL,
     MISSION_CANCEL,
-    MISSION_GET_POSITION,
   }MissionOperation;
 
   typedef enum
