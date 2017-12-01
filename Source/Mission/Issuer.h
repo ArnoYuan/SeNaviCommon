@@ -106,16 +106,6 @@ namespace NS_Mission
       return true;
     }
 
-    void cancel()
-    {
-      if(object)
-      {
-        scoped_lock< interprocess_mutex > lock(object->lock);
-        object->operation = MISSION_CANCEL;
-        object->issuer_cond.notify_all();
-      }
-    }
-
     void process()
     {
       while(active)
@@ -154,6 +144,8 @@ namespace NS_Mission
 
     bool trigger;
 
+    bool action_in_backgroung;
+
   public:
     bool action(double x, double y, double yaw, const int timeout = 30, MissionResult& last_result = MISSION_SUCCEED)
     {
@@ -191,6 +183,22 @@ namespace NS_Mission
       object->status = MISSION_STANDBY;
 
       return true;
+    }
+
+    void runActionProcess(double x, double y, double yaw, const int timeout = 30)
+    {
+      action_in_backgroung = true;
+      boost::thread action_thread = boost::thread(boost::bind(&Issuer::action, this, x, y, yaw, timeout));
+    }
+
+    void cancel()
+    {
+      if(object)
+      {
+        scoped_lock< interprocess_mutex > lock(object->lock);
+        object->operation = MISSION_CANCEL;
+        object->issuer_cond.notify_all();
+      }
     }
 
   };
