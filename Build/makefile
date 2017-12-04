@@ -12,7 +12,6 @@ RM := rm -rf
 -include Source/Time/subdir.mk
 -include Source/Serialization/subdir.mk
 -include Source/Parameter/subdir.mk
--include Source/Mission/subdir.mk
 -include Source/Exception/subdir.mk
 -include Source/Console/subdir.mk
 -include Source/ConfigFile/subdir.mk

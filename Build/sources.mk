@@ -27,7 +27,6 @@ Source/Callbacks \
 Source/ConfigFile \
 Source/Console \
 Source/Exception \
-Source/Mission \
 Source/Parameter \
 Source/Serialization \
 Source/Time \
