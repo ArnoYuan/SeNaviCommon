@@ -14,6 +14,12 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/not.hpp>
 
+#include <transform/transform2d.h>
+#include <type/pose2d.h>
+#include <sensor/lidar2d.h>
+#include <type/map2d.h>
+#include <type/point2d.h>
+
 #include <cstring>
 
 /**
@@ -335,6 +341,160 @@ namespace NS_NaviCommon
     }
   };
 
+  /**
+   * brief Transform2D serializer.
+   */
+  template< >
+  struct Serializer<sgbot::tf::Transform2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::tf::Transform2D& transform)
+    {
+      float x, y, theta, scalar;
+
+      transform.getValue(x,y,theta, scalar);
+
+      stream.next(x);
+      stream.next(y);
+      stream.next(theta);
+      stream.next(scalar);
+    }
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::tf::Transform2D& transform)
+    {
+      float x, y, theta, scalar;
+      stream.next(x);
+      stream.next(y);
+      stream.next(theta);
+      stream.next(scalar);
+    }
+    inline static uint32_t serializedLength(const sgbot::tf::Transform2D& transform)
+    {
+      return sizeof(float)*4;
+    }
+  };
+
+  template< >
+  struct Serializer<sgbot::MapPointType>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::MapPointType& m)
+    {
+      stream.next(m);
+    };
+
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::MapPointType& m)
+    {
+      stream.next(m);
+    }
+    template<typename Stream>
+    inline static uint32_t serializedLength(Stream& stream, const sgbot::MapPointType& m)
+    {
+      return sizeof(m);
+    }
+
+  };
+
+  template< >
+  struct Serializer<sgbot::Pose2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::Pose2D& pose2d)
+    {
+      stream.next(pose2d.x());
+      stream.next(pose2d.y());
+      stream.next(pose2d.theta());
+    }
+
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::Pose2D& pose2d)
+    {
+      stream.next(pose2d.x());
+      stream.next(pose2d.y());
+      stream.next(pose2d.theta());
+    }
+
+    inline static uint32_t serializedLength(const sgbot::Pose2D& pose2d)
+    {
+      return sizeof(float)*3;
+    }
+  };
+  template< >
+  struct Serializer<sgbot::Point2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::Point2D& point2d)
+    {
+      stream.next(point2d.x());
+      stream.next(point2d.y());
+    }
+
+    template<typename Stream>
+    inline static void read(Stream& stream, const sgbot::Point2D& point2d)
+    {
+      stream.next(point2d.x());
+      stream.next(point2d.y());
+    }
+    template<typename Stream>
+    inline static uint32_t serializedLength(Stream& stream, const sgbot::Point2D& point2d)
+    {
+      return sizeof(float)*2;
+    }
+  };
+
+  template< >
+  struct Serializer<sgbot::Map2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::Map2D& map2d)
+    {
+      stream.next(map2d.height_);
+      stream.next(map2d.width_);
+      stream.next(map2d.origin_);
+      stream.next(map2d.points_);
+      stream.next(map2d.resolution_);
+    }
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::Map2D& map2d)
+    {
+      stream.next(map2d.height_);
+      stream.next(map2d.width_);
+      stream.next(map2d.origin_);
+      stream.next(map2d.points_);
+      stream.next(map2d.resolution_);
+    }
+
+    inline static uint32_t serializedLength(const sgbot::Map2D& map2d)
+    {
+      return sizeof(map2d.height_)+sizeof(map2d.width_)+sizeof(sgbot::MapPointType)*map2d.points_.size()*map2d.points_[0].size()+sizeof(float)*2+sizeof(map2d.resolution_);
+    }
+  };
+/*
+  template< >
+  struct Serializer<sgbot::sensor::Lidar2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::sensor::Lidar2D& lidar2d)
+    {
+
+      stream.next(lidar2d.origin_);
+      stream.next(lidar2d.points_);
+    }
+
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::sensor::Lidar2D& lidar2d)
+    {
+      stream.next(lidar2d.origin_);
+      stream.next(lidar2d.points_);
+    }
+
+    inline static uint32_t serializedLength(const sgbot::sensor::Lidar2D& lidar2d)
+    {
+      return sizeof(lidar2d.origin_)+sizeof(lidar2d.points_);
+    }
+  };
+*/
   /**
    * \brief Vector serializer.  Default implementation does nothing
    */

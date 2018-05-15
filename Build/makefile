@@ -51,7 +51,7 @@ all: libSeNaviCommon.so
 libSeNaviCommon.so: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	arm-openwrt-linux-muslgnueabi-g++ -shared -o "libSeNaviCommon.so" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-openwrt-linux-muslgnueabi-g++ -shared -o "libSeNaviCommon.so" $(OBJS) $(USER_OBJS) $(LIBS) -I$(STAGING_DIR)/usr/include/libsgbot
 	@echo 'Finished building target: $@'
 	@echo ' '
 
