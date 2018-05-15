@@ -19,6 +19,8 @@
 #include <sensor/lidar2d.h>
 #include <type/map2d.h>
 #include <type/point2d.h>
+#include <type/odometry.h>
+#include <type/velocity2d.h>
 
 #include <cstring>
 
@@ -388,8 +390,7 @@ namespace NS_NaviCommon
     {
       stream.next(m);
     }
-    template<typename Stream>
-    inline static uint32_t serializedLength(Stream& stream, const sgbot::MapPointType& m)
+    inline static uint32_t serializedLength(const sgbot::MapPointType& m)
     {
       return sizeof(m);
     }
@@ -437,8 +438,8 @@ namespace NS_NaviCommon
       stream.next(point2d.y());
     }
 
-    template<typename Stream>
-    inline static uint32_t serializedLength(Stream& stream, const sgbot::Point2D& point2d)
+
+    inline static uint32_t serializedLength(const sgbot::Point2D& point2d)
     {
       return sizeof(float)*2;
     }
@@ -470,6 +471,51 @@ namespace NS_NaviCommon
     {
       return sizeof(map2d.height_)+sizeof(map2d.width_)+sizeof(sgbot::MapPointType)*map2d.points_.size()*map2d.points_[0].size()+sizeof(float)*2+sizeof(map2d.resolution_);
     }
+  };
+
+  template< >
+  struct Serializer<sgbot::Velocity2D>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::Velocity2D& velocity2d)
+    {
+      stream.next(velocity2d.linear);
+      stream.next(velocity2d.angular);
+    }
+    template<typename Stream>
+    inline static void read(Stream& stream, sgbot::Velocity2D& velocity2d)
+    {
+      stream.next(velocity2d.linear);
+      stream.next(velocity2d.angular);
+    }
+    inline static uint32_t serializedLength(sgbot::Velocity2D& velocity2d)
+    {
+      return sizeof(float)*2;
+    }
+  };
+
+  template< >
+  struct Serializer<sgbot::Odometry>
+  {
+    template<typename Stream>
+    inline static void write(Stream& stream, const sgbot::Odometry& odom)
+    {
+      stream.next(odom.pose2d);
+      stream.next(odom.velocity2d);
+    }
+
+    template<typename Stream>
+    inline static void read(Sream& stream, sgbot::Odometry& odom)
+    {
+      stream.next(odom.pose2d);
+      stream.next(odom.velocity2d);
+    }
+
+    inline static uint32_t serializedLength(const sgbot::Odometry& odom)
+    {
+      return sizeof(float)*3+sizeof(float)*2;
+    }
+
   };
 /*
   template< >
