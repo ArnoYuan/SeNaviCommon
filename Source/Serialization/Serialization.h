@@ -431,11 +431,12 @@ namespace NS_NaviCommon
     }
 
     template<typename Stream>
-    inline static void read(Stream& stream, const sgbot::Point2D& point2d)
+    inline static void read(Stream& stream, sgbot::Point2D& point2d)
     {
       stream.next(point2d.x());
       stream.next(point2d.y());
     }
+
     template<typename Stream>
     inline static uint32_t serializedLength(Stream& stream, const sgbot::Point2D& point2d)
     {
