@@ -488,7 +488,7 @@ namespace NS_NaviCommon
       stream.next(velocity2d.linear);
       stream.next(velocity2d.angular);
     }
-    inline static uint32_t serializedLength(sgbot::Velocity2D& velocity2d)
+    inline static uint32_t serializedLength(const sgbot::Velocity2D& velocity2d)
     {
       return sizeof(float)*2;
     }
