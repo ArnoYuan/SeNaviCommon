@@ -505,7 +505,7 @@ namespace NS_NaviCommon
     }
 
     template<typename Stream>
-    inline static void read(Sream& stream, sgbot::Odometry& odom)
+    inline static void read(Stream& stream, sgbot::Odometry& odom)
     {
       stream.next(odom.pose2d);
       stream.next(odom.velocity2d);
