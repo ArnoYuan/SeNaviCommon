@@ -21,6 +21,8 @@
 #include <type/point2d.h>
 #include <type/odometry.h>
 #include <type/velocity2d.h>
+#include <linear-algebra/vector.h>
+#include <linear-algebra/matrix.h>
 
 #include <cstring>
 
@@ -375,7 +377,7 @@ namespace NS_NaviCommon
       return sizeof(float)*4;
     }
   };
-
+/*
   template< >
   struct Serializer<sgbot::MapPointType>
   {
@@ -396,6 +398,9 @@ namespace NS_NaviCommon
     }
 
   };
+*/
+  CREATE_SIMPLE_SERIALIZER(sgbot::MapPointType);
+
 
   template< >
   struct Serializer<sgbot::Pose2D>
@@ -403,6 +408,7 @@ namespace NS_NaviCommon
     template<typename Stream>
     inline static void write(Stream& stream, const sgbot::Pose2D& pose2d)
     {
+
       stream.next(pose2d.x());
       stream.next(pose2d.y());
       stream.next(pose2d.theta());
@@ -421,6 +427,7 @@ namespace NS_NaviCommon
       return sizeof(float)*3;
     }
   };
+
   template< >
   struct Serializer<sgbot::Point2D>
   {
@@ -454,7 +461,9 @@ namespace NS_NaviCommon
       stream.next(map2d.height_);
       stream.next(map2d.width_);
       stream.next(map2d.origin_);
+      //printf("points>>start\n");
       stream.next(map2d.points_);
+      //printf("points>>end\n");
       stream.next(map2d.resolution_);
     }
     template<typename Stream>
@@ -469,7 +478,13 @@ namespace NS_NaviCommon
 
     inline static uint32_t serializedLength(const sgbot::Map2D& map2d)
     {
-      return sizeof(map2d.height_)+sizeof(map2d.width_)+sizeof(sgbot::MapPointType)*map2d.points_.size()*map2d.points_[0].size()+sizeof(float)*2+sizeof(map2d.resolution_);
+      int vec_size = 0;
+      for(int i=0;i<map2d.points_[i].size();i++)
+      {
+        vec_size += map2d.points_[i].size();
+      }
+      //return sizeof(map2d.height_)+sizeof(map2d.width_)+sizeof(float)*2+sizeof(map2d.resolution_);
+      return sizeof(map2d.height_)+sizeof(map2d.width_)+sizeof(sgbot::MapPointType)*vec_size+sizeof(float)*2+sizeof(map2d.resolution_);
     }
   };
 
