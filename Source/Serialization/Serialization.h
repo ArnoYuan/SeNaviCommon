@@ -562,6 +562,7 @@ namespace NS_NaviCommon
   template< >
   struct Serializer<sgbot::SpathMsg>
   {
+    template<typename Stream>
     inline static void wite(Stream& stream, const sgbot::SpathMsg& msg)
     {
       float theta;
@@ -570,6 +571,7 @@ namespace NS_NaviCommon
       stream.next(theta);
       stream.next(dir);
     }
+    template<typename Stream>
     inline static void read(Stream& stream, const sgbot::SpathMsg& msg)
     {
       float theta;
