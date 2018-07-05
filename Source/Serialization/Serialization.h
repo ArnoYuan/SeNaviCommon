@@ -580,7 +580,7 @@ namespace NS_NaviCommon
       stream.next(dir);
 
     }
-    inline static void serializedLength(const sgbot::SpathMsg& msg)
+    inline static uint32_t serializedLength(const sgbot::SpathMsg& msg)
     {
       return sizeof(float)+sizeof(int);
     }
