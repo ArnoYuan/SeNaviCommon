@@ -584,7 +584,7 @@ namespace NS_NaviCommon
     {
       return sizeof(float)+sizeof(int);
     }
-  }
+  };
 /*
   template< >
   struct Serializer<sgbot::sensor::Lidar2D>
