@@ -21,6 +21,7 @@
 #include <type/point2d.h>
 #include <type/odometry.h>
 #include <type/velocity2d.h>
+#include <type/spath_msg.h>
 #include <linear-algebra/vector.h>
 #include <linear-algebra/matrix.h>
 
@@ -394,6 +395,7 @@ namespace NS_NaviCommon
       stream.next(y);
       stream.next(theta);
       stream.next(scalar);
+      transform.setValue(x,y,theta, scalar);
     }
     inline static uint32_t serializedLength(const sgbot::tf::Transform2D& transform)
     {
@@ -556,6 +558,31 @@ namespace NS_NaviCommon
     }
 
   };
+
+  template< >
+  struct Serializer<sgbot::SpathMsg>
+  {
+    inline static void wite(Stream& stream, const sgbot::SpathMsg& msg)
+    {
+      float theta;
+      int dir;
+      msg.getValue(theta, dir);
+      stream.next(theta);
+      stream.next(dir);
+    }
+    inline static void read(Stream& stream, const sgbot::SpathMsg& msg)
+    {
+      float theta;
+      int dir;
+      stream.next(theta);
+      stream.next(dir);
+
+    }
+    inline static void serializedLength(const sgbot::SpathMsg& msg)
+    {
+      return sizeof(float)+sizeof(int);
+    }
+  }
 /*
   template< >
   struct Serializer<sgbot::sensor::Lidar2D>
